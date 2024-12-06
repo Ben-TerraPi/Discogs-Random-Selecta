@@ -93,24 +93,24 @@ with open('collection.csv',
 
 print("Collection exportée dans 'collection.csv'.")
 
-#dataframe
+# #dataframe
 
-df = pd.read_csv("collection.csv")
+# df = pd.read_csv("collection.csv")
 
 
-#Export de ma collection
+# #Export de ma collection
 
-# tri du tableau par nom artiste
-df = df.sort_values("artist")
+# # tri du tableau par nom artiste
+# df = df.sort_values("artist")
 
-# reset de l'index du tableau
-df = df.reset_index()
+# # reset de l'index du tableau
+# df = df.reset_index()
 
-#suppression de l'ancienne colonne index
-df = df.drop("index",axis=1)
+# #suppression de l'ancienne colonne index
+# df = df.drop("index",axis=1)
 
-#export du nouveau tableau .csv
-df.to_csv("my_collection.csv")
+# #export du nouveau tableau .csv
+# df.to_csv("my_collection.csv")
 
 
 
