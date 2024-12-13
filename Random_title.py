@@ -72,3 +72,24 @@ def random_title2(genre, year):
 random_title2("Electronic",2005)
 
 # %%
+def random_title3(genre, year):
+    results = d.search(genre=genre,year=year)
+    test = len(results)
+    if test != 0:
+        page_random = random.randint(1,results.pages)
+        nb_results = len(results.page(page_random))
+        k_random = random.randint(0,nb_results-1)
+        album = results.page(page_random)[k_random]
+        title = album.title
+        str = title.lower()
+        str2 = str.replace(" ","+")
+        return title, f'https://www.youtube.com/results?search_query={str2}' 
+    else:
+        return "todo"
+    
+# [0].title
+
+
+# %%
+random_title3("Hip Hop",1982)
+
