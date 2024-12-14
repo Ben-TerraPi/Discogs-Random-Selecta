@@ -1,6 +1,4 @@
-# %%
-import os
-import webbrowser
+
 # %%
 from Random_title import random_style_album
 
