@@ -8,6 +8,7 @@ import csv
 import pprint
 import random
 
+
 #-------------------------GENRES DISCOGS
 # Blues 
 # Brass & Military 
@@ -312,6 +313,6 @@ def random_style_album(genre,style, year):
 
 
 # %%
-random_style_album("","Techno", 2021)
+random_style_album("Hip Hop","", 2005)
 # %%
 
