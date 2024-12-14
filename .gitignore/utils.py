@@ -1,3 +1,4 @@
+# %%
 def random_style_album(genre,style, year):
     results = d.search(genre=genre,style=style, year=year)
     test = len(results)
@@ -13,3 +14,4 @@ def random_style_album(genre,style, year):
         return title, image, f'https://www.youtube.com/results?search_query={str2}' 
     else:
         return "todo"
+# %%

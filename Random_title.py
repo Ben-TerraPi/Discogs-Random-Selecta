@@ -305,7 +305,8 @@ def random_style_album(genre,style, year):
         image = album.images[0]["uri"]
         str = title.lower()
         str2 = str.replace(" ","+")
-        return title, image, f'https://www.youtube.com/results?search_query={str2}' 
+        url = f'https://www.youtube.com/results?search_query={str2}'
+        return title, image, url 
     else:
         return "todo"
     
@@ -313,6 +314,7 @@ def random_style_album(genre,style, year):
 
 
 # %%
-random_style_album("Hip Hop","", 2005)
+random_style_album("","Italo-Disco", 1978)
 # %%
+
 
