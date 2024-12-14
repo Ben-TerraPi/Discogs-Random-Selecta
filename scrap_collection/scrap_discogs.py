@@ -107,7 +107,7 @@ df = df.reset_index()
 df = df.drop("index",axis=1)
 
 #export du nouveau tableau .csv
-df.to_csv("my_collection.csv")
+df.to_csv("scrap_collection\my_collection.csv")
 
 
 
