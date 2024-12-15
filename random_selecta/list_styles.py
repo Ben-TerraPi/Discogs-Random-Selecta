@@ -1249,4 +1249,31 @@ military_style = [
 ]
 
 
+genres_styles = {"Blues" : blues_style, 
+        "Brass & Military " : military_style,
+        "Children's" : children_style,
+        "Classical" : classical_style, 
+        "Electronic" : electro_style ,
+        "Folk, World, & Country" : world_style, 
+        "Funk / Soul" : funk_soul_style,
+        "Hip Hop" : hip_hop_style, 
+        "Jazz" : jazz_style, 
+        "Latin" : latin_style,
+        "Non-Music" : non_music_style,
+        "Pop" : pop_list,
+        "Reggae" : reggae_style,
+        "Rock" : rock_style, 
+        "Stage & Screen" : stage_style}
+
+
 print("list_styles.py loaded successfully")
+
+
+#Création tableau
+# df = pd.DataFrame.from_dict(genres_styles, orient='index').transpose()
+
+# df.to_csv("tableau_genre.csv")
+
+#print("tableau créé")
+
+
