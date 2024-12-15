@@ -1,3 +1,4 @@
+#%%
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Electro
 electro_style = [
     "Abstract",
@@ -1275,5 +1276,13 @@ print("list_styles.py loaded successfully")
 # df.to_csv("tableau_genre.csv")
 
 #print("tableau créé")
+#%%
+genres_styles.keys()
+genres_styles.values()
 
+#%%
+genres_styles["Electronic"]
 
+#%%
+
+# %%
