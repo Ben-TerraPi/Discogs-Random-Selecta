@@ -1,33 +1,16 @@
 import discogs_client
 import random
 import webbrowser
+import streamlit as st
+from datetime import datetime
+from list_styles import electro_style, rock_style, pop_list, funk_soul_style, jazz_style, world_style,classical_style, hip_hop_style, stage_style, latin_style, reggae_style, blues_style, non_music_style, children_style, military_style, genres_styles
 
-#%%
+
 #Discogs Client & User token
 
 d = discogs_client.Client("ExampleApplication/0.1", user_token= "aPYjQukkBxJNCzDiALSJxttKmPMfuLmJDAVOOuKS")
 
-#-------------------------GENRES DISCOGS
-#%%
-list_genre = [
-"Blues", 
-"Brass & Military ",
-"Children's",
-"Classical", 
-"Electronic",
-"Folk, World, & Country", 
-"Funk / Soul",
-"Hip Hop", 
-"Jazz", 
-"Latin",
-"Non-Music",
-"Pop",
-"Reggae",
-"Rock", 
-"Stage & Screen"
-]
 
-#%%
 def random_selecta(genre,style, year):
     results = d.search(genre=genre,style=style, year=year)
     test = len(results)
@@ -42,15 +25,62 @@ def random_selecta(genre,style, year):
         str2 = str.replace(" ","+")
         url = f'https://www.youtube.com/results?search_query={str2}'
 
-        webbrowser.open(url)
+        #webbrowser.open(url)
 
         return title, image, url  
     else:
         return "todo"
     
+#>>>>>>>>>>>>>>>>>>>>> Streamlit page
 
-#%%
-random_selecta("Rock","",1987)
+st.set_page_config(
+    page_title="Discogs Random Selecta",
+    page_icon="🎧",
+    layout="wide",
+    initial_sidebar_state="expanded",
+)
+
+#>>>>>>>>>>>>>>>>>>>>>> Streamlit sidebar
+
+with st.sidebar:
+    st.image("image/images.jpg")
+    st.write("About:")
+    st.caption("Query one track from a random album on Discogs by selecting a genre, a style and a year.")
+
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Title
+
+st.title('🎧Discogs Random Selecta')
+
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+genre = st.selectbox("Select genre",
+                     list(genres_styles.keys()),
+                     index=0
+                     )
+
+styles = genres_styles[genre]
+
+style = st.selectbox("Select style",
+                     styles,
+                     index=None
+                     )
+
+current_year = datetime.now().year
+years = list(range(1910, current_year + 1))
+
+year = st.selectbox("Select year",
+                    years,
+                    index=None
+                    )
+
+if st.button("Generate Link"):
+    title, image, url = random_selecta(genre, style, year)
+    
+    if title and image and url:
+        st.markdown(f"[YouTube Search Results]({url})")
+        st.write(f"### Track Title: {title}")
+        st.image(image, caption="Track Cover", use_container_width=True)
+    else:
+        st.warning("No results found. Try a different selection.")
 
 
-# %%
