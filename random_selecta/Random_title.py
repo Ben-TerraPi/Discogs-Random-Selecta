@@ -1,3 +1,4 @@
+import sys
 import discogs_client
 import random
 import webbrowser
