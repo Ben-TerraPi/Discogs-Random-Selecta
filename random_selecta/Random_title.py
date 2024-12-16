@@ -69,7 +69,7 @@ style = st.selectbox("Select style",
 current_year = datetime.now().year
 years = list(range(1910, current_year + 1))
 
-year = st.selectbox("Select year",
+year = st.selectbox("Select release year",
                     years,
                     index=None,
                     )
