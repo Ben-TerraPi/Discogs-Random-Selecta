@@ -44,9 +44,9 @@ st.set_page_config(
 #>>>>>>>>>>>>>>>>>>>>>> Streamlit sidebar
 
 with st.sidebar:
-    st.image("image/images.jpg")
+    st.image("image/discogs.png")
     st.write("About:")
-    st.caption("Query one track from a random album on Discogs by selecting a genre, a style and a year.")
+    st.caption("Query one track from a random album on Discogs database by selecting a genre, a style and a release year.")
 
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Title
 
@@ -71,7 +71,7 @@ years = list(range(1910, current_year + 1))
 
 year = st.selectbox("Select year",
                     years,
-                    index=None
+                    index=None,
                     )
 
 if st.button("Generate Link"):
