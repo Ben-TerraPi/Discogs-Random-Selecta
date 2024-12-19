@@ -25,10 +25,11 @@ def random_selecta(genre,style, year):
         str = title.lower()
         str2 = str.replace(" ","+")
         url = f'https://www.youtube.com/results?search_query={str2}'
+        link = album.url
 
         #webbrowser.open(url)
 
-        return title, image, url  
+        return title, image, url , link 
     else:
         return "todo"
     
@@ -75,11 +76,12 @@ year = st.selectbox("Select release year",
                     )
 
 if st.button("Generate Link"):
-    title, image, url = random_selecta(genre, style, year)
+    title, image, url, link = random_selecta(genre, style, year)
     
     if title and image and url:
         st.markdown(f"[YouTube Search Results]({url})")
         st.write(f"### Track Title: {title}")
+        st.write(link)
         st.image(image, caption="Track Cover", use_container_width=True)
     else:
         st.warning("No results found. Try a different selection.")
