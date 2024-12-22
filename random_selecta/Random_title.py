@@ -9,7 +9,7 @@ from list_styles import electro_style, rock_style, pop_list, funk_soul_style, ja
 
 #Discogs Client & User token
 
-d = discogs_client.Client("ExampleApplication/0.1", user_token= "aPYjQukkBxJNCzDiALSJxttKmPMfuLmJDAVOOuKS")
+d = discogs_client.Client("ExampleApplication/0.1", user_token= "FFCHhXOkwaGQGbBGejcGGYsdUngQcVZjbijuCVrZ")
 
 
 def random_selecta(genre,style, year):
