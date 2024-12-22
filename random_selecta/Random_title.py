@@ -5,33 +5,12 @@ import streamlit as st
 import discogs_client
 from datetime import datetime
 from list_styles import electro_style, rock_style, pop_list, funk_soul_style, jazz_style, world_style,classical_style, hip_hop_style, stage_style, latin_style, reggae_style, blues_style, non_music_style, children_style, military_style, genres_styles
+from utils import token, random_selecta
 
 
 #Discogs Client & User token
 
-d = discogs_client.Client("ExampleApplication/0.1", user_token= "FFCHhXOkwaGQGbBGejcGGYsdUngQcVZjbijuCVrZ")
-
-
-def random_selecta(genre,style, year):
-    results = d.search(genre=genre,style=style, year=year)
-    test = len(results)
-    if test != 0:
-        page_random = random.randint(1,results.pages)
-        nb_results = len(results.page(page_random))
-        k_random = random.randint(0,nb_results-1)
-        album = results.page(page_random)[k_random]
-        title = album.title
-        image = album.images[0]["uri"]
-        str = title.lower()
-        str2 = str.replace(" ","+")
-        url = f'https://www.youtube.com/results?search_query={str2}'
-        link = album.url
-
-        #webbrowser.open(url)
-
-        return title, image, url , link 
-    else:
-        return "todo"
+d = discogs_client.Client("ExampleApplication/0.1", user_token= token)
     
 #>>>>>>>>>>>>>>>>>>>>> Streamlit page
 
