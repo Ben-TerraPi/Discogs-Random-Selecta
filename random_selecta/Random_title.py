@@ -8,6 +8,7 @@ from list_styles import electro_style, rock_style, pop_list, funk_soul_style, ja
 from utils import token, random_selecta
 
 
+
 #Discogs Client & User token
 
 d = discogs_client.Client("ExampleApplication/0.1", user_token= token)
