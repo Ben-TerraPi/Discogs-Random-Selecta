@@ -60,7 +60,7 @@ if st.button("Generate Link"):
     
     if title and image and url:
         st.markdown(f"[YouTube Search Results]({url})")
-        st.write(f"### Track Title: {title}")
+        st.write(f"### Album Title: {title}")
         st.write(link)
         st.image(image, caption="Track Cover", use_container_width=True)
     else:
