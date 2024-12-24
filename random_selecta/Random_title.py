@@ -55,7 +55,7 @@ year = st.selectbox("Select release year",
                     )
 
 if st.button("Generate Link"):
-    title, image, url, link = utils.random_selecta(genre, style, year)
+    title, image, url, link = random_selecta(genre, style, year)
     
     if title and image and url:
         st.markdown(f"[YouTube Search Results]({url})")
