@@ -26,7 +26,7 @@ st.set_page_config(
 with st.sidebar:
     st.image("image/discogs.png")
     st.write("About:")
-    st.caption("Query one track from a random album on Discogs database by selecting a genre, a style and a release year.")
+    st.caption("Query a random album on Discogs database by selecting a genre, a style and a release year.")
 
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Title
 
