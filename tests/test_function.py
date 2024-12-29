@@ -8,7 +8,7 @@ import random
 import discogs_client
 
 
-token = "FFCHhXOkwaGQGbBGejcGGYsdUngQcVZjbijuCVrZ"
+token = st.secrets["token"]["user_token"]
 
 d = discogs_client.Client("ExampleApplication/0.1", user_token= token)
 

@@ -1,15 +1,17 @@
 import sys
 import os
-sys.path.append(os.path.abspath('random_selecta'))
+sys.path.append('/mount/src/discogs/random_selecta')
 import random
 import webbrowser
 import streamlit as st
 import discogs_client
 from datetime import datetime
 from list_styles import electro_style, rock_style, pop_list, funk_soul_style, jazz_style, world_style,classical_style, hip_hop_style, stage_style, latin_style, reggae_style, blues_style, non_music_style, children_style, military_style, genres_styles
-from utils import token, random_selecta
+from utils import random_selecta
 
 #Discogs Client & User token
+
+token = st.secrets["token"]["user_token"]
 
 d = discogs_client.Client("ExampleApplication/0.1", user_token= token)
     

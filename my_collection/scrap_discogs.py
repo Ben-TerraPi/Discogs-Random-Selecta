@@ -9,8 +9,9 @@ import pprint
 
 #Discogs Client & User token
 
-d = discogs_client.Client("ExampleApplication/0.1", user_token= "aPYjQukkBxJNCzDiALSJxttKmPMfuLmJDAVOOuKS")
+token = st.secrets["token"]["user_token"]
 
+d = discogs_client.Client("ExampleApplication/0.1", user_token= token)
 #Mon compte
 
 me = d.identity()
