@@ -1,5 +1,6 @@
 import sys
 import os
+sys.path.append(os.path.abspath('random_selecta'))
 import random
 import webbrowser
 import streamlit as st
