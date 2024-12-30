@@ -5,7 +5,14 @@ import csv
 import pprint
 import random
 import discogs_client
+import streamlit as st
 # from googleapiclient.discovery import build
+
+#Discogs Client & User token
+
+token = st.secrets["token"]["user_token"]
+
+d = discogs_client.Client("ExampleApplication/0.1", user_token= token)
 
 #>>>>>>>>>>>>>>>>>>>>>>>> Random SELECTA
 
