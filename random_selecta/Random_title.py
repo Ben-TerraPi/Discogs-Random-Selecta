@@ -8,7 +8,6 @@ import discogs_client
 from datetime import datetime
 from list_styles import electro_style, rock_style, pop_list, funk_soul_style, jazz_style, world_style,classical_style, hip_hop_style, stage_style, latin_style, reggae_style, blues_style, non_music_style, children_style, military_style, genres_styles
 from utils import random_youtube
-import googleapiclient
 from googleapiclient.discovery import build
 
 #Discogs Client & User token
