@@ -6,13 +6,18 @@ import pprint
 import random
 import discogs_client
 import streamlit as st
-# from googleapiclient.discovery import build
+from googleapiclient.discovery import build
 
 #Discogs Client & User token
 
 token = st.secrets["token"]["user_token"]
 
 d = discogs_client.Client("ExampleApplication/0.1", user_token= token)
+
+#>>>>>>>>>>>>>>>>>>>>>>>>>>YOUTUBE
+
+
+api_key = st.secrets["youtube"]["api_key"]
 
 #>>>>>>>>>>>>>>>>>>>>>>>> Random SELECTA
 
@@ -139,9 +144,9 @@ def random_youtube(genre, style, year):
         youtube = build('youtube', 'v3', developerKey=api_key)
         request = youtube.search().list(
             part="snippet",
-            q=str2,
+            q=str,
             type="video",
-            maxResults=5  # Limiter le nombre de résultats
+            maxResults=1  # Limiter le nombre de résultats
         )
         response = request.execute()
 
