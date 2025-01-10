@@ -67,7 +67,7 @@ if st.button("Generate Link"):
         st.write(link)
         st.image(image, caption="Track Cover", width=150) #use_container_width=True)
         st.markdown(f"[YouTube Search Results]({url})")
-        st.write(f"youtube_url: {youtube_results[0]['url']}")
+        st.write(f"youtube url: {youtube_results[0]['url']}")
         st.video(youtube_results[0]["url"])
     else:
         st.warning("No results found. Try a different selection.")
