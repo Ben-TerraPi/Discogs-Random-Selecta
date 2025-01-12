@@ -44,7 +44,7 @@ genre = st.selectbox("Select genre",
                      index=None
                      )
 
-styles = genres_styles[genre]
+styles = genres_styles.get(genre, None)
 
 style = st.selectbox("Select style",
                      styles,
