@@ -3,18 +3,11 @@ import os
 sys.path.append('/mount/src/discogs/random_selecta')
 import random
 import streamlit as st
-import discogs_client
 from datetime import datetime
 from list_styles import electro_style, rock_style, pop_list, funk_soul_style, jazz_style, world_style,classical_style, hip_hop_style, stage_style, latin_style, reggae_style, blues_style, non_music_style, children_style, military_style, genres_styles
 from utils import random_youtube
 from googleapiclient.discovery import build
 
-#Discogs Client & User token
-
-token = st.secrets["token"]["user_token"]
-
-d = discogs_client.Client("ExampleApplication/0.1", user_token= token)
-    
 
 #>>>>>>>>>>>>>>>>>>>>> Streamlit page
 
@@ -32,11 +25,11 @@ with st.sidebar:
     st.write("About:")
     st.caption("Query a random album on Discogs database by selecting a genre, a style and a release year.")
 
-#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Title
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Title
 
 st.title('🎧Discogs Random Selecta')
 
-#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Search
 
 genre = st.selectbox("Select genre",
                      list(genres_styles.keys()),
