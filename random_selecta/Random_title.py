@@ -2,7 +2,6 @@ import sys
 import os
 sys.path.append('/mount/src/discogs/random_selecta')
 import random
-import webbrowser
 import streamlit as st
 import discogs_client
 from datetime import datetime
@@ -77,7 +76,13 @@ if st.button("Generate Link"):
             st.write(f" YouTube Search Results: {url}") 
             if len(youtube_results) > 0:
                 st.write(f" Youtube Url: {youtube_results[0]['url']}")  
-                
+
+        #     print(len(discogs_videos))
+        #     print(discogs_videos)
+        # if len(discogs_videos) > 0:
+        #     for item in discogs_videos:
+        #         help(item)
+
         if len(youtube_results) > 0:
             st.video(youtube_results[0]["url"])
         else : 

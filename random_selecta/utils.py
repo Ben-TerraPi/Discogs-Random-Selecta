@@ -133,17 +133,23 @@ def random_youtube(genre, style, year):
         if len(album.images) > 0 :
             image = album.images[0]["uri"]
         else:
-            None          
+            image = None          
         link = album.url
 
         #youtube search
         str = title.lower()
         str2 = str.replace(" ","+")
         url = f'https://www.youtube.com/results?search_query={str2}'
-        
-        #webbrowser.open(url)
 
-        # Recherche sur YouTube via l'API YouTube
+        youtube_results = []
+
+        # #discogs videos
+        discogs_videos = []
+        # if len(album.videos) > 0:
+        #     discogs_videos.append(album.videos)
+        
+
+            # Recherche sur YouTube via l'API YouTube
         youtube = build('youtube', 'v3', developerKey=api_key)
         request = youtube.search().list(
             part="snippet",
@@ -157,7 +163,7 @@ def random_youtube(genre, style, year):
             response = None
 
         # Extraire les résultats de la recherche YouTube
-        youtube_results = []
+        
         if response:
 
             for item in response['items']:
