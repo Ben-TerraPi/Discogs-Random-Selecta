@@ -151,18 +151,21 @@ def random_youtube(genre, style, year):
             type="video",
             maxResults=1  # Limiter le nombre de résultats
         )
-        response = request.execute()
+        try:
+            response = request.execute()
+        except:
+            response = None
 
         # Extraire les résultats de la recherche YouTube
         youtube_results = []
-        for item in response['items']:
-            video_id = item['id']['videoId']
-            video_title = item['snippet']['title']
-            video_url = f"https://www.youtube.com/watch?v={video_id}"
-            youtube_results.append({'title': video_title, 'url': video_url})
+        if response:
+
+            for item in response['items']:
+                video_id = item['id']['videoId']
+                video_title = item['snippet']['title']
+                video_url = f"https://www.youtube.com/watch?v={video_id}"
+                youtube_results.append({'title': video_title, 'url': video_url})
 
         return title, image, url , link , youtube_results
-    else:
-        return "Aucun résultat trouvé"
 
 print("utils.py loaded successfully")

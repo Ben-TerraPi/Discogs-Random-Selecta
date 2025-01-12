@@ -81,7 +81,7 @@ if st.button("Generate Link"):
         if len(youtube_results) > 0:
             st.video(youtube_results[0]["url"])
         else : 
-            st.write("No Video Found")
+            st.write("No Video Found Or Youtube API quota exceeded")
     else:
         st.warning("No results found. Try a different selection.")
 
