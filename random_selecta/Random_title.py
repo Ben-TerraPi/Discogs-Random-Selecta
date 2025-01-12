@@ -5,6 +5,7 @@ import random
 import webbrowser
 import streamlit as st
 import discogs_client
+from google_auth_oauthlib.flow import InstalledAppFlow
 from datetime import datetime
 from list_styles import electro_style, rock_style, pop_list, funk_soul_style, jazz_style, world_style,classical_style, hip_hop_style, stage_style, latin_style, reggae_style, blues_style, non_music_style, children_style, military_style, genres_styles
 from utils import random_youtube
@@ -41,7 +42,7 @@ st.title('🎧Discogs Random Selecta')
 
 genre = st.selectbox("Select genre",
                      list(genres_styles.keys()),
-                     index=0
+                     index=None
                      )
 
 styles = genres_styles[genre]
@@ -63,11 +64,11 @@ if st.button("Generate Link"):
     title, image, url , link , youtube_results = random_youtube(genre, style, year)
     
     if title and image and url:
-        st.write(f"### Album Title: {title}")
-        st.write(link)
+        st.write(f"### Artist - Album: {title}")
+        st.write(f' Discogs Release Page: {link}')
         st.image(image, caption="Track Cover", width=150) #use_container_width=True)
-        st.markdown(f"[YouTube Search Results]({url})")
-        st.write(f"youtube url: {youtube_results[0]['url']}")
+        st.markdown(f" YouTube Search Results: {url}")
+        st.write(f" Youtube Url: {youtube_results[0]['url']}")
         st.video(youtube_results[0]["url"])
     else:
         st.warning("No results found. Try a different selection.")
