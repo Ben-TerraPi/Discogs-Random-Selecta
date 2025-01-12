@@ -63,15 +63,25 @@ if st.button("Generate Link"):
     title, image, url , link , youtube_results = random_youtube(genre, style, year)
     
     if title:
-        st.write(f"### {title}")
-        st.write(f' Discogs Release Page: {link}')
-        if image:
-            st.image(image, caption="Track Cover", width=150) #use_container_width=True)
-        st.markdown(f" YouTube Search Results: {url}")
+        col1, col2 = st.columns([0.3,0.7])
+
+        with col1:
+            if image:
+                st.image(image, use_container_width=True) #width=150) 
+            else:
+                st.image("image/vinyl_discogs.jpg")
+
+        with col2:
+            st.write(f"### {title}")
+            st.write(f' Discogs Release Page: {link}')
+            st.write(f" YouTube Search Results: {url}") 
+            if len(youtube_results) > 0:
+                st.write(f" Youtube Url: {youtube_results[0]['url']}")  
+                
         if len(youtube_results) > 0:
-            st.write(f" Youtube Url: {youtube_results[0]['url']}")
             st.video(youtube_results[0]["url"])
-        else : st.write("No Video Found")
+        else : 
+            st.write("No Video Found")
     else:
         st.warning("No results found. Try a different selection.")
 
