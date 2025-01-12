@@ -59,35 +59,33 @@ year = st.selectbox("Select release year",
                     )
 
 if st.button("Generate Link"):
-    title, image, url , link , youtube_results = random_youtube(genre, style, year)
-    
+    title, image, url, link, discogs_videos, youtube_results = random_youtube(genre, style, year)
+
     if title:
-        col1, col2 = st.columns([0.3,0.7])
+        col1, col2 = st.columns([0.3, 0.7])
 
         with col1:
             if image:
-                st.image(image, use_container_width=True) #width=150) 
+                st.image(image, use_container_width=True)
             else:
                 st.image("image/vinyl_discogs.jpg")
 
         with col2:
             st.write(f"### {title}")
-            st.write(f' Discogs Release Page: {link}')
-            st.write(f" YouTube Search Results: {url}") 
-            if len(youtube_results) > 0:
-                st.write(f" Youtube Url: {youtube_results[0]['url']}")  
+            st.write(f"Discogs Release Page: {link}")
+            st.write(f"YouTube Search Results: {url}")
+            if youtube_results:
+                st.write(f"YouTube URL: {youtube_results[0]['url']}")
 
-        #     print(len(discogs_videos))
-        #     print(discogs_videos)
-        # if len(discogs_videos) > 0:
-        #     for item in discogs_videos:
-        #         help(item)
-
-        if len(youtube_results) > 0:
-            st.video(youtube_results[0]["url"])
-        else : 
-            st.write("No Video Found Or Youtube API quota exceeded")
+        # Gestion des vidéos
+        if discogs_videos:
+            st.video(discogs_videos)
+        elif youtube_results and len(youtube_results) > 0:
+            st.video(youtube_results[0]['url'])
+        else:
+            st.warning(f"No video found for this release. Try [YouTube Search Results]({url})")
     else:
         st.warning("No results found. Try a different selection.")
+
 
 

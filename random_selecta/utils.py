@@ -120,6 +120,15 @@ def random_youtube(genre, style, year):
 
     results = d.search(genre=genre,style=style, year=year)
     test = len(results)
+
+    #Variable par défaut
+    title = None
+    image = None
+    url = None
+    link = None
+    discogs_videos = None
+    youtube_results = None
+
     if test != 0:
 
         #album aléatoire
@@ -130,48 +139,45 @@ def random_youtube(genre, style, year):
 
         #info album
         title = album.title
-        if len(album.images) > 0 :
+        if hasattr(album, 'images') and album.images:
             image = album.images[0]["uri"]
-        else:
-            image = None          
         link = album.url
+
 
         #youtube search
         str = title.lower()
         str2 = str.replace(" ","+")
         url = f'https://www.youtube.com/results?search_query={str2}'
 
-        youtube_results = []
+        #Vidéo Discogs
+        if hasattr(album, 'videos') and album.videos:
+            discogs_videos = album.videos[0].url
 
-        # #discogs videos
-        discogs_videos = []
-        # if len(album.videos) > 0:
-        #     discogs_videos.append(album.videos)
-        
-
+        else :
             # Recherche sur YouTube via l'API YouTube
-        youtube = build('youtube', 'v3', developerKey=api_key)
-        request = youtube.search().list(
-            part="snippet",
-            q=str,
-            type="video",
-            maxResults=1  # Limiter le nombre de résultats
-        )
-        try:
-            response = request.execute()
-        except:
-            response = None
+            youtube = build('youtube', 'v3', developerKey=api_key)
+            request = youtube.search().list(
+                part="snippet",
+                q=str,
+                type="video",
+                maxResults=1  # Limiter le nombre de résultats
+            )
+            try:
+                response = request.execute()
+            except:
+                response = None
 
-        # Extraire les résultats de la recherche YouTube
-        
-        if response:
+            # Extraire les résultats de la recherche YouTube
+            youtube_results = []
+            
+            if response:
 
-            for item in response['items']:
-                video_id = item['id']['videoId']
-                video_title = item['snippet']['title']
-                video_url = f"https://www.youtube.com/watch?v={video_id}"
-                youtube_results.append({'title': video_title, 'url': video_url})
+                for item in response['items']:
+                    video_id = item['id']['videoId']
+                    video_title = item['snippet']['title']
+                    video_url = f"https://www.youtube.com/watch?v={video_id}"
+                    youtube_results.append({'title': video_title, 'url': video_url})
 
-        return title, image, url , link , youtube_results
+        return title, image, url , link , discogs_videos , youtube_results
 
 print("utils.py loaded successfully")
