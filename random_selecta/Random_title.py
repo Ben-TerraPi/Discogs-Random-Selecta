@@ -52,7 +52,7 @@ style = st.selectbox("Select style",
                      )
 
 current_year = datetime.now().year
-years = list(range(1910, current_year + 1))
+years = list(range(current_year, 1910, -1))
 
 year = st.selectbox("Select release year",
                     years,
@@ -62,13 +62,16 @@ year = st.selectbox("Select release year",
 if st.button("Generate Link"):
     title, image, url , link , youtube_results = random_youtube(genre, style, year)
     
-    if title and image and url:
-        st.write(f"### Artist - Album: {title}")
+    if title:
+        st.write(f"### {title}")
         st.write(f' Discogs Release Page: {link}')
-        st.image(image, caption="Track Cover", width=150) #use_container_width=True)
+        if image:
+            st.image(image, caption="Track Cover", width=150) #use_container_width=True)
         st.markdown(f" YouTube Search Results: {url}")
-        st.write(f" Youtube Url: {youtube_results[0]['url']}")
-        st.video(youtube_results[0]["url"])
+        if len(youtube_results) > 0:
+            st.write(f" Youtube Url: {youtube_results[0]['url']}")
+            st.video(youtube_results[0]["url"])
+        else : st.write("No Video Found")
     else:
         st.warning("No results found. Try a different selection.")
 

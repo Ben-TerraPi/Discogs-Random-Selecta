@@ -130,7 +130,10 @@ def random_youtube(genre, style, year):
 
         #info album
         title = album.title
-        image = album.images[0]["uri"]
+        if len(album.images) > 0 :
+            image = album.images[0]["uri"]
+        else:
+            None          
         link = album.url
 
         #youtube search
