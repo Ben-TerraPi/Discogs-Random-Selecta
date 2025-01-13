@@ -64,11 +64,11 @@ if st.button("Generate Link"):
                 st.image("image/vinyl_discogs.jpg")
 
         with col2:
-            st.write(f"### {title}")
+            st.write(f"## {title}")
             st.write(f"Discogs Release Page: {link}")
             st.write(f"YouTube Search Results: {url}")
             if youtube_results:
-                st.write(f"YouTube URL: {youtube_results[0]['url']}")
+                st.write(f"### > Most Relevant Youtube Video:")
 
         # Gestion des vidéos
         if discogs_videos:
