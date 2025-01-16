@@ -71,7 +71,6 @@ with open('collection.csv',
         )
         community_have = release_data.community.have if release_data.community.have else "N/A"
         community_want = release_data.community.want if release_data.community.want else "N/A"
-
         image_url = release_data.images[0]["uri"] if release_data.images else "N/A"
 
         writer.writerow([
