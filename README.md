@@ -176,7 +176,7 @@ Mon tableau était créé : [my_collection.csv](https://github.com/Ben-TerraPi/D
 Ayant découvert le commentaire **#%%** permettant des cellules de code Jupyter-like sur **VS code** j'arrète de travailler avec **google collab** et fais des tests dans cette nouvelle fenêtre interactive avec le fichier [Stats_coll.py](https://github.com/Ben-TerraPi/Discogs/blob/main/my_collection/Stats_coll.py) 
 
 
-# 2iem dossier : [tests](https://github.com/Ben-TerraPi/Discogs/tree/main/tests)
+# 2ème dossier : [tests](https://github.com/Ben-TerraPi/Discogs/tree/main/tests)
 
 S'ensuit une phase laborieuse de tests divers avec l'API.
 
@@ -283,7 +283,7 @@ Rien de compliqué ici, le fichier config.toml pour la charte graphique mais sur
 
 Et [requirements.txt](https://github.com/Ben-TerraPi/Discogs/blob/main/requirements.txt) à la racine du projet.
 
-# 3iem dossier : [random_selecta](https://github.com/Ben-TerraPi/Discogs/tree/main/random_selecta)
+# 3ème dossier : [random_selecta](https://github.com/Ben-TerraPi/Discogs/tree/main/random_selecta)
 
 Dans ce dossier on retrouve:
 
@@ -291,7 +291,7 @@ Dans ce dossier on retrouve:
 
 * [Random_title.py](https://github.com/Ben-TerraPi/Discogs/blob/main/random_selecta/Random_title.py) qui sert au lancement de l'application Streamlit.
 
-* [list_styles.py](https://github.com/Ben-TerraPi/Discogs/blob/main/random_selecta/list_styles.py) dans lequelle j'ai créé un dictionnaire pour chaques styles musicaux présent dans un genre musicale.
+* [list_styles.py](https://github.com/Ben-TerraPi/Discogs/blob/main/random_selecta/list_styles.py) dans lequelle j'ai créé un dictionnaire pour chaques styles musicaux présent dans chaques genres musicaux référencés par Discogs, cela sera intégré pour les selectbox sur streamlit.
 
 ```
 genres_styles = {"Blues" : blues_style,
