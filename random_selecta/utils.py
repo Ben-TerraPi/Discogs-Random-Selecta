@@ -1,8 +1,4 @@
 import pandas as pd
-import requests
-import operator
-import csv
-import pprint
 import random
 import discogs_client
 import streamlit as st
@@ -76,9 +72,6 @@ def random_selecta(genre,style, year):
 
 def random_youtube(genre, style, year):
 
-    results = d.search(genre=genre,style=style, year=year)
-    test = len(results)
-
     #Variable par défaut
     title = None
     image = None
@@ -86,6 +79,9 @@ def random_youtube(genre, style, year):
     link = None
     discogs_videos = None
     youtube_results = None
+
+    results = d.search(genre=genre,style=style, year=year)
+    test = len(results)
 
     if test != 0:
 
