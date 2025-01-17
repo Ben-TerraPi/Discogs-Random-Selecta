@@ -150,3 +150,24 @@ with open('collection.csv',
 
 print("Collection exportée dans 'collection.csv'.")
 ```
+### Création du fichier final
+
+Le scraping via l'API n'a pas nécissité un nettoyage conséquant. 
+
+```
+# load fichier .csv
+df = pd.read_csv("/content/collection.csv")
+
+# tri du tableau par nom artiste
+df = df.sort_values("artist")
+
+# rest de l'index du tableau
+df = df.reset_index()
+
+#suppression de l'ancienne colonne index
+df = df.drop("index",axis=1)
+
+#export du nouveau tableau .csv
+df.to_csv("my_collection.csv")
+```
+Mon tableau était créé : [my_collection.csv](https://github.com/Ben-TerraPi/Discogs/blob/main/my_collection.csv)
