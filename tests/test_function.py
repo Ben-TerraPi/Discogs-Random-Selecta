@@ -1,11 +1,7 @@
 # %%
 import pandas as pd
-import requests
-import operator
-import csv
-import pprint
-import random
 import discogs_client
+import streamlit as st
 
 
 token = st.secrets["token"]["user_token"]
