@@ -184,10 +184,12 @@ A ce stade je suis devenu plus à l'aise avec VS code studio et ayant découvert
 
 S'ensuit une phase laborieuse de tests divers avec l'API, le contenu du site de discogs étant updater par sa communauté, son code est une accumulation de MAJ et à en croire les forums, écrits par une multitude de codeur se succédant.
 
-De ce travail découlera une première fonction répondant à la possibilité de chercher l'ensemble des albums d'un genre précis et d'une année précise:
+## fonctions de départ
+
+De ce travail découlera une première fonction répondant à la possibilité de chercher l'ensemble des albums d'un genre précis et d'une année précise dans un dataframe:
 
 ```
-def random_title1(genre, year):
+def list_albums(genre, year):
     list = []
     results = d.search(genre=genre,year=year)
     for el in results:
@@ -195,9 +197,32 @@ def random_title1(genre, year):
     return pd.DataFrame(list)
 ```
 
+En testant `list_albums("Hip Hop",1986)` le résultat est de 4156 lignes avec en ligne 0 <Master 42835 'Whodini - Funky Beat'>
+
+Pourquoi un dataframe?
+Return results sans la boucle for créant la liste ne donne comme résultats qu'un message de ce genre: <discogs_client.models.MixedPaginatedList at 0x1bbcb513230>
 
 
+## Random Album
 
+Maintenant que j'ai une liste exhaustive selon mes critères, et que j'ai compris que mes recherches sont regroupés dans un ensemble de pages, j'aimerai à l'image du bac à vinyles que l'on fouille tombé sur un album alétoirement:
+
+```
+import random    #rajouté à ma liste d'import au début du fichier
+
+def random_album(genre, year):
+    results = d.search(genre=genre,year=year)
+    test = len(results)
+    if test != 0:
+        page_random = random.randint(1,results.pages)
+        nb_results = len(results.page(page_random))
+        k_random = random.randint(0,nb_results-1)
+        return results.page(page_random)[k_random]
+    else:
+        return "todo"
+```
+
+Cette fois-ci je n'ai plus qu'un seul résultat comme par exemple: <Release 7261574 'Run DMC* - Walk This Way'>
 
 
 # 3iem dossier [random_selecta](https://github.com/Ben-TerraPi/Discogs/tree/main/random_selecta)
