@@ -184,4 +184,24 @@ A ce stade je suis devenu plus à l'aise avec VS code studio et ayant découvert
 
 S'ensuit une phase laborieuse de tests divers avec l'API, le contenu du site de discogs étant updater par sa communauté, son code est une accumulation de MAJ et à en croire les forums, écrits par une multitude de codeur se succédant.
 
+De ce travail découlera une première fonction répondant à la possibilité de chercher l'ensemble des albums d'un genre précis et d'une année précise:
+
+```
+def random_title1(genre, year):
+    list = []
+    results = d.search(genre=genre,year=year)
+    for el in results:
+        list.append(el)
+    return pd.DataFrame(list)
+```
+
+
+
+
+
+
+# 3iem dossier [random_selecta](https://github.com/Ben-TerraPi/Discogs/tree/main/random_selecta)
+
+
+
 
