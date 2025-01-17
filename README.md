@@ -26,7 +26,7 @@ Je suis passionné de musique et collectionneur de vinyl, discogs est un site o�
 Au départ ma volonté était de simplement lister ma collection personnel en utilisant python et l'API de discogs, il s'est vite avéré que je n'avais pas l'envie de m'arréter là.
 
 
-## [my_collection](https://github.com/Ben-TerraPi/Discogs/tree/main/my_collection) 
+## 1er dossier : [my_collection](https://github.com/Ben-TerraPi/Discogs/tree/main/my_collection) 
 
 J'ai commencé en utilisant google collab étant gratuit et simple d'utilisation avec cette première ligne de code:
 
