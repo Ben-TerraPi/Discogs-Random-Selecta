@@ -2,7 +2,7 @@ En construction!!!
 
 
 
-## About it :  ![image](https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Discogs-logo-billboard-1548-1092x722.jpg/320px-Discogs-logo-billboard-1548-1092x722.jpg)
+# About it :  ![image](https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Discogs-logo-billboard-1548-1092x722.jpg/320px-Discogs-logo-billboard-1548-1092x722.jpg)
 Discogs is a database of information about audio recordings, including commercial releases, promotional releases, and bootleg or off-label releases.
 
 Database contents are user-generated, and described in The New York Times as "Wikipedia-like".
@@ -19,14 +19,16 @@ https://python3-discogs-client.readthedocs.io/en/latest/index.html
 
 https://www.discogs.com/developers/
 
-## About me:
+# About me:
 
 Je suis passionné de musique et collectionneur de vinyl, discogs est un site où je passe beaucoup de temps. Suite à une formation de Data Analyst, il était évident que pour mon premier projet personnel j'allais combiner ces deux centres d'intérêt.
 
 Au départ ma volonté était de simplement lister ma collection personnel en utilisant python et l'API de discogs, il s'est vite avéré que je n'avais pas l'envie de m'arréter là.
 
 
-## 1er dossier : [my_collection](https://github.com/Ben-TerraPi/Discogs/tree/main/my_collection) 
+# 1er dossier : [my_collection](https://github.com/Ben-TerraPi/Discogs/tree/main/my_collection) 
+
+## scrap_discogs.py
 
 J'ai commencé en utilisant google collab étant gratuit et simple d'utilisation avec cette première ligne de code:
 
@@ -171,3 +173,8 @@ df = df.drop("index",axis=1)
 df.to_csv("my_collection.csv")
 ```
 Mon tableau était créé : [my_collection.csv](https://github.com/Ben-TerraPi/Discogs/blob/main/my_collection.csv)
+
+
+## Stats_coll.py
+
+A ce stade je suis devenu plus à l'aise avec VS code studio et ayant découvert le commentaire #%% permettant des Jupyter-like code cell j'arrète de travailler avec google collab et fais des tests dans cette nouvelle fenêtre interactive sur VS code avec le fichier [Stats_coll.py](https://github.com/Ben-TerraPi/Discogs/blob/main/my_collection/Stats_coll.py) 
