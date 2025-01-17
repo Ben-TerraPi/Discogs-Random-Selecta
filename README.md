@@ -178,3 +178,8 @@ Mon tableau était créé : [my_collection.csv](https://github.com/Ben-TerraPi/D
 ## Stats_coll.py
 
 A ce stade je suis devenu plus à l'aise avec VS code studio et ayant découvert le commentaire #%% permettant des Jupyter-like code cell j'arrète de travailler avec google collab et fais des tests dans cette nouvelle fenêtre interactive sur VS code avec le fichier [Stats_coll.py](https://github.com/Ben-TerraPi/Discogs/blob/main/my_collection/Stats_coll.py) 
+
+
+# 2iem dossier : [tests](https://github.com/Ben-TerraPi/Discogs/tree/main/tests)
+
+S'ensuit une phase laborieuse de tests divers avec l'API, le contenu du site de discogs étant updater par sa communauté, son code est une accumulation de MAJ et à en croire les forums écrits par une multitude de codeur se succédant.
