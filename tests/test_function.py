@@ -10,7 +10,7 @@ d = discogs_client.Client("ExampleApplication/0.1", user_token= token)
 
 #>>>>>>>>>>>>>>>>>>>>>>>> FUNCTION
 
-def random_title1(genre, year):
+def list_albums(genre, year):
     list = []
     results = d.search(genre=genre,year=year)
     for el in results:
@@ -18,4 +18,4 @@ def random_title1(genre, year):
     return pd.DataFrame(list)
    
 # %%
-random_title1("Hip Hop",1983) 
+list_albums("Hip Hop",1983) 

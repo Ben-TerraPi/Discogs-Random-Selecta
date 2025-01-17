@@ -19,6 +19,29 @@ d = discogs_client.Client("ExampleApplication/0.1", user_token= token)
 
 api_key = st.secrets["youtube"]["api_key"]
 
+
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>LIST ALBUMS
+
+def list_albums(genre, year):
+    list = []
+    results = d.search(genre=genre,year=year)
+    for el in results:
+        list.append(el)
+    return pd.DataFrame(list)
+
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>RANDOM ALBUM
+
+def random_album(genre, year):
+    results = d.search(genre=genre,year=year)
+    test = len(results)
+    if test != 0:
+        page_random = random.randint(1,results.pages)
+        nb_results = len(results.page(page_random))
+        k_random = random.randint(0,nb_results-1)
+        return results.page(page_random)[k_random]
+    else:
+        return "todo"
+
 #>>>>>>>>>>>>>>>>>>>>>>>> Random SELECTA no videos
 
 def random_selecta(genre,style, year):
@@ -44,29 +67,6 @@ def random_selecta(genre,style, year):
         
 
         return title, image, url , link 
-    else:
-        return "todo"
-
-
-#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>LIST ALBUMS
-
-def list_albums(genre, year):
-    list = []
-    results = d.search(genre=genre,year=year)
-    for el in results:
-        list.append(el)
-    return pd.DataFrame(list)
-
-#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>RANDOM ALBUM
-
-def random_album(genre, year):
-    results = d.search(genre=genre,year=year)
-    test = len(results)
-    if test != 0:
-        page_random = random.randint(1,results.pages)
-        nb_results = len(results.page(page_random))
-        k_random = random.randint(0,nb_results-1)
-        return results.page(page_random)[k_random]
     else:
         return "todo"
 
