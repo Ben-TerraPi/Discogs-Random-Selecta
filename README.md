@@ -59,7 +59,7 @@ me = d.identity()
 print(dir(me))
 ```
 
-J'avais maintenant les attributs:
+J'avais maintenant les attributs disponible pour mon compte client:
 
 ['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getstate__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_known_invalid_keys', 'changes', 'client', 'collection_folders', 'collection_items', 'collection_value', 'data', 'delete', 'fetch', 'home_page', 'id', 'inventory', 'lists', 'location', 'name', 'num_collection', 'num_lists', 'num_wantlist', 'orders', 'previous_request', 'profile', 'rank', 'rating_avg', 'refresh', 'registered', 'releases_contributed', 'save', 'url', 'username', 'wantlist']
 
@@ -182,4 +182,6 @@ A ce stade je suis devenu plus à l'aise avec VS code studio et ayant découvert
 
 # 2iem dossier : [tests](https://github.com/Ben-TerraPi/Discogs/tree/main/tests)
 
-S'ensuit une phase laborieuse de tests divers avec l'API, le contenu du site de discogs étant updater par sa communauté, son code est une accumulation de MAJ et à en croire les forums écrits par une multitude de codeur se succédant.
+S'ensuit une phase laborieuse de tests divers avec l'API, le contenu du site de discogs étant updater par sa communauté, son code est une accumulation de MAJ et à en croire les forums, écrits par une multitude de codeur se succédant.
+
+
