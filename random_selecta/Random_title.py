@@ -46,34 +46,39 @@ year = st.selectbox("Select release year",
                     index=None,
                     )
 
+
+
 if st.button("Generate Release"):
-    title, image, url, link, discogs_videos, youtube_results = random_youtube(genre, style, year)
-
-    if title:
-        col1, col2 = st.columns([0.3, 0.7])
-
-        with col1:
-            if image:
-                st.image(image, use_container_width=True)
-            else:
-                st.image("image/vinyl_discogs.jpg")
-
-        with col2:
-            st.write(f"## {title}")
-            st.write(f"Discogs Release Page: {link}")
-            st.write(f"YouTube Search Results: {url}")
-            if youtube_results:
-                st.write(f"### > Most Relevant Youtube Video:")
-
-        # Gestion des vidéos
-        if discogs_videos:
-            st.video(discogs_videos)
-        elif youtube_results and len(youtube_results) > 0:
-            st.video(youtube_results[0]['url'])
+        if genre is None or style is None or year is None:
+             st.warning("Please select a genre, style, and release year before generating.")
         else:
-            st.warning(f"No video found for this release. Try [YouTube Search Results]({url})")
-    else:
-        st.warning("No results found. Try a different selection.")
+            title, image, url, link, discogs_videos, youtube_results = random_youtube(genre, style, year)
+
+            if title:
+                col1, col2 = st.columns([0.3, 0.7])
+
+                with col1:
+                    if image:
+                        st.image(image, use_container_width=True)
+                    else:
+                        st.image("image/vinyl_discogs.jpg")
+
+                with col2:
+                    st.write(f"## {title}")
+                    st.write(f"Discogs Release Page: {link}")
+                    st.write(f"YouTube Search Results: {url}")
+                    if youtube_results:
+                        st.write(f"### > Most Relevant Youtube Video:")
+
+                # Gestion des vidéos
+                if discogs_videos:
+                    st.video(discogs_videos)
+                elif youtube_results and len(youtube_results) > 0:
+                    st.video(youtube_results[0]['url'])
+                else:
+                    st.warning(f"No video found for this release. Try [YouTube Search Results]({url})")
+            else:
+                st.warning("No results found. Try a different selection.")
 
 
 
