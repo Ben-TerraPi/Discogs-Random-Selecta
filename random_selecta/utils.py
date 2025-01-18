@@ -72,6 +72,9 @@ def random_selecta(genre,style, year):
 
 def random_youtube(genre, style, year):
 
+    results = d.search(genre=genre,style=style, year=year)
+    test = len(results)
+
     #Variable par défaut
     title = None
     image = None
@@ -79,9 +82,6 @@ def random_youtube(genre, style, year):
     link = None
     discogs_videos = None
     youtube_results = None
-
-    results = d.search(genre=genre,style=style, year=year)
-    test = len(results)
 
     if test != 0:
 
@@ -104,25 +104,25 @@ def random_youtube(genre, style, year):
         str3 = str2.replace("&","and")
         url = f'https://www.youtube.com/results?search_query={str3}'
 
-        #Vidéo Discogs
+        #vidéo discogs
         if hasattr(album, 'videos') and album.videos:
             discogs_videos = album.videos[0].url
 
         else :
-            # Recherche sur YouTube via l'API YouTube
+            #youtube API
             youtube = build('youtube', 'v3', developerKey=api_key)
             request = youtube.search().list(
                 part="snippet",
                 q=str,
                 type="video",
-                maxResults=1  # Limiter le nombre de résultats
+                maxResults=1
             )
             try:
                 response = request.execute()
             except:
                 response = None
 
-            # Extraire les résultats de la recherche YouTube
+            #résultats recherche youtube
             youtube_results = []
             
             if response:
