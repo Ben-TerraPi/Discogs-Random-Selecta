@@ -170,6 +170,8 @@ df.to_csv("my_collection.csv")
 ```
 Mon tableau était créé : [my_collection.csv](https://github.com/Ben-TerraPi/Discogs/blob/main/my_collection.csv)
 
+L'exploration des données sont visibles sur cette page [Notion](https://www.notion.so/BigQuerry-DISCOGS-17f3c2440f4d8058b48ccba890050601?pvs=4)
+
 
 ## Stats_coll.py
 
