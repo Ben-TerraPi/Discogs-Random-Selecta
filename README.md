@@ -1,28 +1,32 @@
-# About it :  ![image](https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Discogs-logo-billboard-1548-1092x722.jpg/320px-Discogs-logo-billboard-1548-1092x722.jpg)
-Discogs is a database of information about audio recordings, including commercial releases, promotional releases, and bootleg or off-label releases.
+# À propos :  ![image](https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Discogs-logo-billboard-1548-1092x722.jpg/320px-Discogs-logo-billboard-1548-1092x722.jpg)
 
-Database contents are user-generated, and described in The New York Times as "Wikipedia-like".
+Discogs est l'une des plus grandes bases de données en ligne répertoriant les productions musicales de tous genres publiées sur tous les types de supports, vinyles, CD, cassettes audio, 78 tours, etc.
 
-While the site was originally created with the goal of becoming the largest online database of electronic music, it now includes releases in all genres and on all formats.
+En 2025, tous genres et formats confondus, le site catalogue plus de 18 millions de productions. Il propose aussi des informations sur plus de 9 millions d'artistes et plus de 2 millions de labels.
+
+Le contenu de la base de données est généré par les utilisateurs et a été décrit par The New York Times comme étant « semblable à Wikipédia ».
 
 SITE: https://www.discogs.com/
 
 API: https://api.discogs.com/
 
-DOC:
-
-https://python3-discogs-client.readthedocs.io/en/latest/index.html
+DOCS:
 
 https://www.discogs.com/developers/
 
-# About me:
-
-Je suis passionné de musique et collectionneur de vinyls, discogs est un site où je passe beaucoup de temps. Suite à une formation de Data Analyst, il était évident que pour mon premier projet personnel j'allais combiner ces deux centres d'intérêt.
-
-Au départ ma volonté était de simplement lister ma collection personnel en utilisant python et l'API de discogs, il s'est vite avéré que je n'avais pas l'envie de m'arréter là.
+https://python3-discogs-client.readthedocs.io/en/latest/index.html
 
 
-# 1er dossier : [my_collection](https://github.com/Ben-TerraPi/Discogs/tree/main/my_collection) 
+# À propos de moi:
+
+Je suis passionné de musique et collectionneur de vinyles. Discogs est un site où je passe beaucoup de temps. Suite à une formation de Data Analyst, il était évident que, pour mon premier projet personnel, j'allais combiner ces deux centres d'intérêt.
+
+Au départ, ma volonté était de simplement lister ma collection en utilisant Python et l'API de Discogs. Il s'est vite avéré que j'avais envie d'aller plus loin.
+
+3 étapes, 3 dossiers.
+
+
+# [my_collection](https://github.com/Ben-TerraPi/Discogs/tree/main/my_collection) : 1er dossier
 
 ## scrap_discogs.py
 
@@ -30,7 +34,7 @@ J'ai commencé en utilisant **google collab** avec cette première ligne de code
 
 `! pip install python3-discogs-client`
 
-C'était partie pour le début d'un projet qui m'a passionné.
+C'était le début d'un projet qui m'a passionné.
 
 ### import
 
@@ -42,7 +46,7 @@ import pandas as pd
 
 ### Discogs Client & User token
 
-Je me suis connecté à mon compte grâce à la génération d'un **token** développeur personnel qui m'a permis de naviguer dans l'API discogs.
+Je me suis connecté à mon compte grâce à la génération d'un **token** développeur qui me permet de naviguer dans l'API discogs.
 
 ```
 d = discogs_client.Client("ExampleApplication/0.1", user_token= "secret")
@@ -51,11 +55,7 @@ me = d.identity()
 
 ### Mon compte
 
-```
-print(dir(me))
-```
-
-J'avais maintenant les attributs disponible pour mon compte client:
+Avec `print(dir(me))` j'avais les attributs disponible pour mon compte client:
 
 ['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getstate__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_known_invalid_keys', 'changes', 'client', 'collection_folders', 'collection_items', 'collection_value', 'data', 'delete', 'fetch', 'home_page', 'id', 'inventory', 'lists', 'location', 'name', 'num_collection', 'num_lists', 'num_wantlist', 'orders', 'previous_request', 'profile', 'rank', 'rating_avg', 'refresh', 'registered', 'releases_contributed', 'save', 'url', 'username', 'wantlist']
 
@@ -159,7 +159,7 @@ df = pd.read_csv("/content/collection.csv")
 # tri du tableau par nom artiste
 df = df.sort_values("artist")
 
-# rest de l'index du tableau
+# reset de l'index du tableau
 df = df.reset_index()
 
 #suppression de l'ancienne colonne index
@@ -176,15 +176,15 @@ Mon tableau était créé : [my_collection.csv](https://github.com/Ben-TerraPi/D
 Ayant découvert le commentaire **#%%** permettant des cellules de code Jupyter-like sur **VS code** j'arrète de travailler avec **google collab** et fais des tests dans cette nouvelle fenêtre interactive avec le fichier [Stats_coll.py](https://github.com/Ben-TerraPi/Discogs/blob/main/my_collection/Stats_coll.py) 
 
 
-# 2ème dossier : [tests](https://github.com/Ben-TerraPi/Discogs/tree/main/tests)
+# [tests](https://github.com/Ben-TerraPi/Discogs/tree/main/tests) : 2ème dossier
 
 S'ensuit une phase laborieuse de tests divers avec l'API.
 
-Le contenu du site de discogs étant updater par sa communauté, son code est une accumulation de MAJ et à en croire les forums il est écrit par une multitude de codeur se succédant.
+Le contenu du site Discogs étant mis à jour par sa communauté, son code est une accumulation de modifications. À en croire les forums, il est écrit par une multitude de codeurs se succédant.
 
 ## fonctions de départ
 
-De ce travail découlera une première fonction répondant à l'envie de chercher l'ensemble des albums d'un genre précis et d'une année précise:
+De mes tests découlera une première fonction répondant au besoin de rechercher l'ensemble des albums d'un genre précis et d'une année donnée.
 
 ```
 def list_albums(genre, year):
@@ -203,7 +203,7 @@ Un simple `return results` ne donne comme résultats qu'un message du genre: <di
 
 ## Fonction random_album
 
-Maintenant que j'ai une liste exhaustive selon mes critères, et que j'ai compris que mes recherches sont regroupés dans un ensemble de pages, j'aimerai à l'image du bac à vinyles que l'on fouille tombé sur un album alétoirement:
+Maintenant que j'ai une liste exhaustive selon mes critères et que j'ai compris que mes recherches sont regroupées en plusieurs pages, j'aimerais, à l'image d'un bac à vinyles que l'on fouille, tomber sur un album aléatoirement.
 
 ```
 import random    #rajouté à ma liste d'import au début du fichier
@@ -270,28 +270,35 @@ Exemple `random_selecta('hip hop', 'Boom Bap', 1986)` avec le résultat:
 # Création d'un STREAMLIT 
 
 Le but est d'avoir une interface utilisateur simple où l'on sélectionne un **genre**, un **style** et une **année** avant de générer la requête.
- 
-Au cours de ma formation de Data Analyst j'ai realisé un projet sur streamlit et pour ce que je souhaite faire cette application est suffisante.
 
-Je reste donc sur VS code et créé un **repository github** en lien avec mon application Streamlit.
+Au cours de ma formation de Data Analyst, j'ai réalisé un projet sur Streamlit, et pour ce que je souhaite faire, cette application est suffisante.
 
+Je reste donc sur VS Code et crée un **repository GitHub** en lien avec mon application Streamlit.
 
 
 ## Set-up [.streamlit](https://github.com/Ben-TerraPi/Discogs/tree/main/.streamlit)
 
-Rien de compliqué ici, le fichier config.toml pour la charte graphique mais surtout un fichier **secrets.toml** caché par **.gitignore** pour garder privé ma clé API discogs et ultérieurement une autre clé YouTube.
+Rien de compliqué ici, le fichier **config.toml** pour la charte graphique mais surtout un fichier **secrets.toml** caché par **.gitignore** pour garder privé ma clé API discogs et une autre clé YouTube.
+
+```
+token = st.secrets["token"]["user_token"]
+
+d = discogs_client.Client("ExampleApplication/0.1", user_token= token)
+
+api_key = st.secrets["youtube"]["api_key"]
+```
 
 Et [requirements.txt](https://github.com/Ben-TerraPi/Discogs/blob/main/requirements.txt) à la racine du projet.
 
-# 3ème dossier : [random_selecta](https://github.com/Ben-TerraPi/Discogs/tree/main/random_selecta)
+# [random_selecta](https://github.com/Ben-TerraPi/Discogs/tree/main/random_selecta) : 3ème dossier
 
 Dans ce dossier on retrouve:
 
-* [utils.py](https://github.com/Ben-TerraPi/Discogs/blob/main/random_selecta/utils.py) qui regroupe toutes mes fonctions.
+* [utils.py](https://github.com/Ben-TerraPi/Discogs/blob/main/random_selecta/utils.py), regroupe toutes mes fonctions issues de la même base.
 
-* [Random_title.py](https://github.com/Ben-TerraPi/Discogs/blob/main/random_selecta/Random_title.py) qui sert au lancement de l'application Streamlit.
+* [Random_title.py](https://github.com/Ben-TerraPi/Discogs/blob/main/random_selecta/Random_title.py), sert au lancement de l'application Streamlit.
 
-* [list_styles.py](https://github.com/Ben-TerraPi/Discogs/blob/main/random_selecta/list_styles.py) dans lequelle j'ai créé un dictionnaire pour chaques styles musicaux présent dans chaques genres musicaux référencés par Discogs, cela sera intégré pour les selectbox sur streamlit.
+* [list_styles.py](https://github.com/Ben-TerraPi/Discogs/blob/main/random_selecta/list_styles.py), dans lequelle j'ai créé un dictionnaire pour chaques styles musicaux présent dans chaques genres musicaux référencés par Discogs, cela sera intégré pour les selectbox sur streamlit.
 
 ```
 genres_styles = {"Blues" : blues_style,
@@ -317,7 +324,7 @@ df.to_csv("tableau_genre.csv")
 ```
 Est créé le [tableau_genre.csv](https://github.com/Ben-TerraPi/Discogs/blob/main/tableau_genre.csv)
 
-## Fonction final
+## Fonction final pour Streamlit
 
 ```
 def random_youtube(genre, style, year):
@@ -354,25 +361,25 @@ def random_youtube(genre, style, year):
         str3 = str2.replace("&","and")
         url = f'https://www.youtube.com/results?search_query={str3}'
 
-        #Vidéo Discogs
+        #vidéo discogs
         if hasattr(album, 'videos') and album.videos:
             discogs_videos = album.videos[0].url
 
         else :
-            # Recherche sur YouTube via l'API YouTube
+            #youtube API
             youtube = build('youtube', 'v3', developerKey=api_key)
             request = youtube.search().list(
                 part="snippet",
                 q=str,
                 type="video",
-                maxResults=1  # Limiter le nombre de résultats
+                maxResults=1
             )
             try:
                 response = request.execute()
             except:
                 response = None
 
-            # Extraire les résultats de la recherche YouTube
+            #résultats recherche youtube
             youtube_results = []
             
             if response:
@@ -388,7 +395,7 @@ def random_youtube(genre, style, year):
 
 # Conclusion
 
-Arriver à ce stade je vous laisse analyser la struture du fichier streamlit [Random_title.py](https://github.com/Ben-TerraPi/Discogs/blob/main/random_selecta/Random_title.py)  et voir le résultat.
+Arriver à ce stade je vous laisse analyser la struture du fichier streamlit [Random_title.py](https://github.com/Ben-TerraPi/Discogs/blob/main/random_selecta/Random_title.py)  et tester le résultat:
 
 https://discogs-random-selecta.streamlit.app/
 
