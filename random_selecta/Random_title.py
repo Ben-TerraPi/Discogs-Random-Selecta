@@ -21,7 +21,7 @@ with st.sidebar:
 
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Title
 
-st.write(f'#### 🎧Query a random album on Discogs database by selecting a genre, a style and a release year!')
+st.write(f'#### Digging for tracks on Discogs database!')
 
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Search
 
@@ -54,7 +54,7 @@ with col2:
 
 st.write("")
 
-if st.button("Generate Release", type="primary"):
+if st.button("Generate Track", type="primary"):
         if genre is None or style is None or year is None:
              st.warning("Please select a genre, style, and release year before generating.")
         else:
@@ -62,8 +62,14 @@ if st.button("Generate Release", type="primary"):
 
             if title:
                 st.write("")
-
                 col1, col2 = st.columns([0.3, 0.7], gap="large")
+                with col1:
+                    st.write("Album:")
+                with col2:
+                    st.write("Random Track:")
+                
+                col1, col2 = st.columns([0.3, 0.7], gap="large")
+                st.write("")
                 with col1:
                     st.write(f"#### {title}")
                     if image:

@@ -95,7 +95,7 @@ def random_youtube(genre, style, year):
         title = album.title
         if hasattr(album, 'images') and album.images:
             image = album.images[0]["uri"]
-        else: image = "image\vinyl_discogs.jpg"
+        else: image = "image/default_cover.png"
         link = album.url
 
 
@@ -107,8 +107,10 @@ def random_youtube(genre, style, year):
 
         #vidéo discogs
         if hasattr(album, 'videos') and album.videos:
-            discogs_videos = album.videos[0].url
-
+            nb = len(album.videos)
+            if nb > 0:
+                key_random = random.randint(0, nb - 1)
+                discogs_videos = album.videos[key_random].url
         else :
             #youtube API
             youtube = build('youtube', 'v3', developerKey=api_key)
