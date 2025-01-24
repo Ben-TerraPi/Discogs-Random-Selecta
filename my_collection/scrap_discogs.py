@@ -1,5 +1,6 @@
 #Import
 import pandas as pd
+import pandas_gbq
 import requests
 import discogs_client
 import operator
@@ -95,19 +96,29 @@ print("Collection exportée dans 'collection.csv'.")
 
 #Export de ma collection trié
 
-df = pd.read_csv("collection.csv")
+my_collection = pd.read_csv("collection.csv")
 
 # tri du tableau par nom artiste
-df = df.sort_values("artist")
+my_collection = my_collection.sort_values("artist")
 
 # reset de l'index du tableau
-df = df.reset_index()
+my_collection = my_collection.reset_index()
 
 #suppression de l'ancienne colonne index
-df = df.drop("index",axis=1)
+my_collection = my_collection.drop("index",axis=1)
 
 #export du nouveau tableau .csv
-df.to_csv("my_collection.csv")
+my_collection.to_csv("my_collection.csv")
+
+
+#>>>>>>>>>>>>>>>>>> Export vers Bigquery
+
+project_id = "discogs-random-selecta"
+table_id = "discogs-random-selecta.my_data.my_collection"
+
+pandas_gbq.to_gbq(my_collection, table_id, project_id)
+
+print("tableau exporté")
 
 
 
