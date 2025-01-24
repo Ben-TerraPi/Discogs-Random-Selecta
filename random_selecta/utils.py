@@ -95,6 +95,7 @@ def random_youtube(genre, style, year):
         title = album.title
         if hasattr(album, 'images') and album.images:
             image = album.images[0]["uri"]
+        else: image = "image\vinyl_discogs.jpg"
         link = album.url
 
 
