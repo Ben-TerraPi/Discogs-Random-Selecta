@@ -42,7 +42,7 @@ with col1:
                         )
 
     current_year = datetime.now().year
-    years = list(range(current_year, 1910, -1))
+    years = list(range(current_year, 1900, -1))
 
     year = st.selectbox("Select release year",
                         years,
@@ -50,24 +50,39 @@ with col1:
                         )
 
 with col2:
-    ""
+
+    st.write("")
+    st.write("")
+    st.write("Sort by numbers of release")
+    st.write("")
+    st.write("")
+    st.write("The deeper you go, the fewer results you'll find.")
+
 
 st.write("")
 
 if st.button("Generate Track", type="primary"):
-        if genre is None or style is None or year is None:
-             st.warning("Please select a genre, style, and release year before generating.")
+    if genre is None or style is None or year is None:
+        st.warning("Please select a genre, style, and release year before generating.")
+    else:
+        # Appel de la fonction random_youtube
+        result = random_youtube(genre, style, year)
+        
+        if result is None or len(result) != 7:
+            st.warning("An error occurred, no valid result returned.")
         else:
-            title, image, url, link, discogs_videos, youtube_results = random_youtube(genre, style, year)
+            title, image, url, link, discogs_videos, youtube_results, test = result
 
-            if title:
+            if test == 0:
+                st.warning("No result, choose a different year")
+            elif title:
                 st.write("")
                 col1, col2 = st.columns([0.3, 0.7], gap="large")
                 with col1:
-                    st.write("Album:")
+                    st.write(f"Album found for {test} results")
                 with col2:
                     st.write("Random Track:")
-                
+
                 col1, col2 = st.columns([0.3, 0.7], gap="large")
                 st.write("")
                 with col1:
@@ -91,4 +106,5 @@ if st.button("Generate Track", type="primary"):
 
             else:
                 st.warning("No results found. Try a different selection.")
+
                 

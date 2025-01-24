@@ -71,48 +71,45 @@ def random_selecta(genre,style, year):
 
 
 def random_youtube(genre, style, year):
-
-    results = d.search(genre=genre,style=style, year=year)
+    results = d.search(genre=genre, style=style, year=year)
     test = len(results)
 
-    #Variable par défaut
+    # Valeurs par défaut
     title = None
-    image = None
+    image = "image/default_cover.png" 
     url = None
     link = None
     discogs_videos = None
-    youtube_results = None
-
+    youtube_results = []
+    
+    # Si des résultats sont trouvés
     if test != 0:
-
-        #album aléatoire
-        page_random = random.randint(1,results.pages)
+        # Album aléatoire
+        page_random = random.randint(1, results.pages)
         nb_results = len(results.page(page_random))
-        k_random = random.randint(0,nb_results-1)
+        k_random = random.randint(0, nb_results - 1)
         album = results.page(page_random)[k_random]
 
-        #info album
+        # Info album
         title = album.title
         if hasattr(album, 'images') and album.images:
             image = album.images[0]["uri"]
-        else: image = "image/default_cover.png"
         link = album.url
 
-
-        #youtube search
+        # Recherche Youtube
         str = title.lower()
-        str2 = str.replace(" ","+")
-        str3 = str2.replace("&","and")
+        str2 = str.replace(" ", "+")
+        str3 = str2.replace("&", "and")
         url = f'https://www.youtube.com/results?search_query={str3}'
 
-        #vidéo discogs
+        # Vidéo Discogs
         if hasattr(album, 'videos') and album.videos:
             nb = len(album.videos)
             if nb > 0:
                 key_random = random.randint(0, nb - 1)
                 discogs_videos = album.videos[key_random].url
-        else :
-            #youtube API
+        else:
+            # API YouTube
             youtube = build('youtube', 'v3', developerKey=api_key)
             request = youtube.search().list(
                 part="snippet",
@@ -125,17 +122,16 @@ def random_youtube(genre, style, year):
             except:
                 response = None
 
-            #résultats recherche youtube
-            youtube_results = []
-            
+            # Résultats recherche YouTube
             if response:
-
+                youtube_results = []
                 for item in response['items']:
                     video_id = item['id']['videoId']
                     video_title = item['snippet']['title']
                     video_url = f"https://www.youtube.com/watch?v={video_id}"
                     youtube_results.append({'title': video_title, 'url': video_url})
 
-        return title, image, url , link , discogs_videos , youtube_results
+    return title, image, url, link, discogs_videos, youtube_results, test
+
 
 print("utils.py loaded successfully")
