@@ -29,14 +29,14 @@ col1, col2 = st.columns([7,3])
 
 with col1:
 
-    genre = st.selectbox("Select genre",
+    genre = st.selectbox("Select genre  ( Sort by number of releases )",
                         list(genres_styles.keys()),
                         index=None
                         )
 
     styles = genres_styles.get(genre, None)
 
-    style = st.selectbox("Select style",
+    style = st.selectbox("Select style  ( The deeper you go, the fewer results you'll find )",
                         styles,
                         index=None
                         )
@@ -50,13 +50,7 @@ with col1:
                         )
 
 with col2:
-
-    st.write("")
-    st.write("")
-    st.write("Sort by numbers of release")
-    st.write("")
-    st.write("")
-    st.write("The deeper you go, the fewer results you'll find.")
+    ("")
 
 
 st.write("")
@@ -79,7 +73,7 @@ if st.button("Generate Track", type="primary"):
                 st.write("")
                 col1, col2 = st.columns([0.3, 0.7], gap="large")
                 with col1:
-                    st.write(f"Album found for {test} results")
+                    st.write(f"Album found from {test} results:")
                 with col2:
                     st.write("Random Track:")
 
@@ -94,7 +88,7 @@ if st.button("Generate Track", type="primary"):
                     st.write(f"[Discogs Release Page]({link})")
                     st.write(f"[YouTube Search Results]({url})")
                     if youtube_results:
-                        st.warning("Most Relevant Youtube Video:")
+                        st.warning("Most Relevant Youtube Video >>>")
                 with col2:
                     # Gestion des vidéos
                     if discogs_videos:
