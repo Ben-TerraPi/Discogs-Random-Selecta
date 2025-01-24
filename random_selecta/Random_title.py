@@ -16,12 +16,12 @@ st.set_page_config(
 #>>>>>>>>>>>>>>>>>>>>>> Streamlit sidebar
 
 with st.sidebar:
-    st.image("image\logo.jpg")
+    st.image("image/logo.jpg")
     st.caption("")
 
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Title
 
-st.write(f'#### 🎧Query a random album on Discogs database by selecting a genre, a style and a release year.')
+st.write(f'#### 🎧Query a random album on Discogs database by selecting a genre, a style and a release year!')
 
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Search
 
@@ -85,3 +85,4 @@ if st.button("Generate Release", type="primary"):
 
             else:
                 st.warning("No results found. Try a different selection.")
+                
