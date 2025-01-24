@@ -16,15 +16,15 @@ st.set_page_config(
 #>>>>>>>>>>>>>>>>>>>>>> Streamlit sidebar
 
 with st.sidebar:
-    st.image("image/discogs.png")
-    st.caption("About:")
-    st.caption("Query a random album on Discogs database by selecting a genre, a style and a release year.")
+    st.image("image\logo.jpg")
+    st.caption("")
 
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Title
 
-# st.title('🎧Discogs Random Selecta')
+st.write(f'#### 🎧Query a random album on Discogs database by selecting a genre, a style and a release year.')
 
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Search
+
 col1, col2 = st.columns([7,3])
 
 with col1:
