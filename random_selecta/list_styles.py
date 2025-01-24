@@ -706,18 +706,18 @@ genres_styles = {
     "Rock" : rock_style,
     "Electronic" : electronic_style,
     "Pop" : pop_style,
-    "Folk_World_&_Country" : world_style,
+    "Folk, World, & Country" : world_style,
     "Jazz" : jazz_style,
-    "Funk_Soul" : funk_soul_style,
+    "Funk / Soul" : funk_soul_style,
     "Classical" : classical_style,
-    "Hip_Hop" : hip_hop_style,
+    "Hip Hop" : hip_hop_style,
     "Latin" : latin_style,
-    "Stage_&_Screen" : stage_style,
+    "Stage & Screen" : stage_style,
     "Reggae" : reggae_style,
     "Blues" : blues_style,
-    "Non_Music" : non_music_style,
+    "Non-Music" : non_music_style,
     "Children's" : children_style,
-    "Brass_&_Military " : military_style
+    "Brass & Military " : military_style
     }
 
      
