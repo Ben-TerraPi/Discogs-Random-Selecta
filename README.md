@@ -42,6 +42,7 @@ C'était le début d'un projet qui m'a passionné.
 import discogs_client
 import csv
 import pandas as pd 
+import pandas_gbq
 ```
 
 ### Discogs Client & User token
@@ -154,25 +155,34 @@ Le scraping via l'API n'a pas nécissité un nettoyage conséquant.
 
 ```
 # load fichier .csv
-df = pd.read_csv("/content/collection.csv")
+my_collection = pd.read_csv("collection.csv")
 
 # tri du tableau par nom artiste
-df = df.sort_values("artist")
+my_collection = my_collection.sort_values("artist")
 
 # reset de l'index du tableau
-df = df.reset_index()
+my_collection = my_collection.reset_index()
 
 #suppression de l'ancienne colonne index
-df = df.drop("index",axis=1)
+my_collection = my_collection.drop("index",axis=1)
 
 #export du nouveau tableau .csv
-df.to_csv("my_collection.csv")
+my_collection.to_csv("my_collection.csv")
 ```
 Mon tableau était créé : [my_collection.csv](https://github.com/Ben-TerraPi/Discogs/blob/main/my_collection.csv)
 
+Exportation vers BigQuery
+
+```
+project_id = "discogs-random-selecta"
+table_id = "discogs-random-selecta.my_data.my_collection"
+
+pandas_gbq.to_gbq(my_collection, table_id, project_id)
+```
+
 Les étapes de travail sur ce fichier sont visibles sur cette page [Notion](https://www.notion.so/BigQuerry-DISCOGS-17f3c2440f4d8058b48ccba890050601?pvs=4)
 
-Où le dashboard réalisé est visible directement sur [Looker Studio](https://lookerstudio.google.com/reporting/9555dbd8-4aef-4ba4-8924-44840306f7b6)
+Le dashboard réalisé est visible directement sur [Looker Studio](https://lookerstudio.google.com/reporting/9555dbd8-4aef-4ba4-8924-44840306f7b6)
 
 
 ## Stats_coll.py
@@ -305,26 +315,28 @@ Dans ce dossier on retrouve:
 * [list_styles.py](https://github.com/Ben-TerraPi/Discogs/blob/main/random_selecta/list_styles.py), dans lequelle j'ai créé un dictionnaire pour chaques styles musicaux présent dans chaques genres musicaux référencés par Discogs, cela sera intégré pour les selectbox sur streamlit.
 
 ```
-genres_styles = {"Blues" : blues_style,
-  "Brass & Military " : military_style,
-  "Children's" : children_style,
-  "Classical" : classical_style, 
-  "Electronic" : electro_style ,
-  "Folk, World, & Country" : world_style, 
-  "Funk / Soul" : funk_soul_style,
-  "Hip Hop" : hip_hop_style, 
-  "Jazz" : jazz_style, 
-  "Latin" : latin_style,
-  "Non-Music" : non_music_style,
-  "Pop" : pop_list,
-  "Reggae" : reggae_style,
-  "Rock" : rock_style, 
-  "Stage & Screen" : stage_style}
+genres_styles = {
+    "Rock" : rock_style,
+    "Electronic" : electronic_style,
+    "Pop" : pop_style,
+    "Folk_World_&_Country" : world_style,
+    "Jazz" : jazz_style,
+    "Funk_Soul" : funk_soul_style,
+    "Classical" : classical_style,
+    "Hip_Hop" : hip_hop_style,
+    "Latin" : latin_style,
+    "Stage_&_Screen" : stage_style,
+    "Reggae" : reggae_style,
+    "Blues" : blues_style,
+    "Non_Music" : non_music_style,
+    "Children's" : children_style,
+    "Brass_&_Military " : military_style
+    }
 
 #Création tableau
-df = pd.DataFrame.from_dict(genres_styles, orient='index').transpose()
+tableau_genre = pd.DataFrame.from_dict(genres_styles, orient='index').transpose()
 
-df.to_csv("tableau_genre.csv")
+tableau_genre.to_csv("tableau_genre.csv")
 ```
 Est créé le [tableau_genre.csv](https://github.com/Ben-TerraPi/Discogs/blob/main/tableau_genre.csv)
 

@@ -1,11 +1,8 @@
 #Import
 import pandas as pd
 import pandas_gbq
-import requests
 import discogs_client
-import operator
 import csv
-import pprint
 import streamlit as st
 
 
