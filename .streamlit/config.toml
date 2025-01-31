@@ -1,3 +1,5 @@
+[server]
+port = 8502
 [theme]
 backgroundColor="#191919"
 primaryColor="#1a7edb"
