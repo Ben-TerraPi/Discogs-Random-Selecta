@@ -17,8 +17,13 @@ st.set_page_config(
 
 with st.sidebar:
     st.image("image/logo.jpg")
-    st.caption("")
-
+    st.caption("About:")
+    st.write("Discogs Random Selecta is an application developped to query information from the Discogs database.")
+    st.write("")
+    st.write("It renders a random album from your selections and displays an embedded video from Discogs. If no video is available, it will search directly on YouTube.")
+    st.write("")
+    st.caption("Disclaimer:")
+    st.write("YouTube results may be inaccurate due to the use of generic terms in the video descriptions")
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Title
 
 st.write(f'#### Digging for tracks on Discogs database!')
