@@ -98,11 +98,33 @@ def random_youtube(genre, style, year):
                 image = album.images[0]["uri"]
             link = album.url
 
+<<<<<<< Updated upstream
             # Recherche Youtube
             str = title.lower()
             str2 = str.replace(" ", "+")
             str3 = str2.replace("&", "and")
             url = f'https://www.youtube.com/results?search_query={str3}'
+=======
+        # Vidéo Discogs
+        if hasattr(album, 'videos') and album.videos:
+            nb = len(album.videos)
+            if nb > 0:
+                key_random = random.randint(0, nb - 1)
+                discogs_videos = album.videos[key_random].url
+        else:
+            # API YouTube
+            youtube = build('youtube', 'v3', developerKey=api_key)
+            request = youtube.search().list(
+                part="snippet",
+                q=str3,
+                type="video",
+                maxResults=1
+            )
+            try:
+                response = request.execute()
+            except:
+                response = None
+>>>>>>> Stashed changes
 
             # Vidéo Discogs
             if hasattr(album, 'videos') and album.videos:
