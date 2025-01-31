@@ -90,48 +90,51 @@ def random_youtube(genre, style, year):
         k_random = random.randint(0, nb_results - 1)
         album = results.page(page_random)[k_random]
 
-        # Info album
-        title = album.title
-        if hasattr(album, 'images') and album.images:
-            image = album.images[0]["uri"]
-        link = album.url
+        if album:
 
-        # Recherche Youtube
-        str = title.lower()
-        str2 = str.replace(" ", "+")
-        str3 = str2.replace("&", "and")
-        url = f'https://www.youtube.com/results?search_query={str3}'
+            # Info album
+            title = album.title
+            if hasattr(album, 'images') and album.images:
+                image = album.images[0]["uri"]
+            link = album.url
 
-        # Vidéo Discogs
-        if hasattr(album, 'videos') and album.videos:
-            nb = len(album.videos)
-            if nb > 0:
-                key_random = random.randint(0, nb - 1)
-                discogs_videos = album.videos[key_random].url
-        else:
-            # API YouTube
-            youtube = build('youtube', 'v3', developerKey=api_key)
-            request = youtube.search().list(
-                part="snippet",
-                q=str,
-                type="video",
-                maxResults=1
-            )
-            try:
-                response = request.execute()
-            except:
-                response = None
+            # Recherche Youtube
+            str = title.lower()
+            str2 = str.replace(" ", "+")
+            str3 = str2.replace("&", "and")
+            url = f'https://www.youtube.com/results?search_query={str3}'
 
-            # Résultats recherche YouTube
-            if response:
-                youtube_results = []
-                for item in response['items']:
-                    video_id = item['id']['videoId']
-                    video_title = item['snippet']['title']
-                    video_url = f"https://www.youtube.com/watch?v={video_id}"
-                    youtube_results.append({'title': video_title, 'url': video_url})
+            # Vidéo Discogs
+            if hasattr(album, 'videos') and album.videos:
+                nb = len(album.videos)
+                if nb > 0:
+                    key_random = random.randint(0, nb - 1)
+                    discogs_videos = album.videos[key_random].url
+            else:
+                # API YouTube
+                youtube = build('youtube', 'v3', developerKey=api_key)
+                request = youtube.search().list(
+                    part="snippet",
+                    q=str3,
+                    type="video",
+                    maxResults=1
+                )
+                try:
+                    response = request.execute()
+                except:
+                    response = None
+
+                # Résultats recherche YouTube
+                if response:
+                    youtube_results = []
+                    for item in response['items']:
+                        video_id = item['id']['videoId']
+                        video_title = item['snippet']['title']
+                        video_url = f"https://www.youtube.com/watch?v={video_id}"
+                        youtube_results.append({'title': video_title, 'url': video_url})
 
     return title, image, url, link, discogs_videos, youtube_results, test
 
 
 print("utils.py loaded successfully")
+
