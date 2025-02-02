@@ -5,12 +5,10 @@ import discogs_client
 import csv
 import streamlit as st
 
-
 #Discogs Client & User token
 
 token = st.secrets["token"]["user_token"]
 d = discogs_client.Client("ExampleApplication/0.1", user_token= token)
-
 
 #Mon compte
 
@@ -27,7 +25,6 @@ print(me.url)
 data = []
 for item in me.collection_folders[0].releases:
       data.append(item)
-
 
 #Import de ma Collection
 
@@ -91,35 +88,13 @@ with open('collection.csv',
 
 print("Collection exportée dans 'collection.csv'.")
 
-#Export de ma collection trié
-
-my_collection = pd.read_csv("collection.csv")
-
-# tri du tableau par nom artiste
-my_collection = my_collection.sort_values("artist")
-
-# reset de l'index du tableau
-my_collection = my_collection.reset_index()
-
-#suppression de l'ancienne colonne index
-my_collection = my_collection.drop("index",axis=1)
-
-#export du nouveau tableau .csv
-my_collection.to_csv("my_collection.csv")
-
-
 #>>>>>>>>>>>>>>>>>> Export vers Bigquery
 
-project_id = "discogs-random-selecta"
-table_id = "discogs-random-selecta.my_data.my_collection"
+collection = pd.read_csv(r"C:\Users\benoi\code\Ben-TerraPi\Discogs\collection.csv")
 
-pandas_gbq.to_gbq(my_collection, table_id, project_id)
+project_id = "discogs-random-selecta"
+table_id = "discogs-random-selecta.my_data.collection"
+
+pandas_gbq.to_gbq(collection, table_id, project_id)
 
 print("tableau exporté")
-
-
-
-
-
-
-

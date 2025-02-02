@@ -149,35 +149,20 @@ with open('collection.csv',
 
 print("Collection exportée dans 'collection.csv'.")
 ```
+Mon tableau était créé : [collection.csv](https://github.com/Ben-TerraPi/Discogs/blob/main/collection.csv)
+
 ### Création du fichier final
 
-Le scraping via l'API n'a pas nécissité un nettoyage conséquant. 
-
 ```
-# load fichier .csv
-my_collection = pd.read_csv("collection.csv")
+collection = pd.read_csv(r"C:\Users\benoi\code\Ben-TerraPi\Discogs\collection.csv")
 
-# tri du tableau par nom artiste
-my_collection = my_collection.sort_values("artist")
-
-# reset de l'index du tableau
-my_collection = my_collection.reset_index()
-
-#suppression de l'ancienne colonne index
-my_collection = my_collection.drop("index",axis=1)
-
-#export du nouveau tableau .csv
-my_collection.to_csv("my_collection.csv")
-```
-Mon tableau était créé : [my_collection.csv](https://github.com/Ben-TerraPi/Discogs/blob/main/my_collection.csv)
-
-Exportation vers BigQuery
-
-```
 project_id = "discogs-random-selecta"
-table_id = "discogs-random-selecta.my_data.my_collection"
+table_id = "discogs-random-selecta.my_data.collection"
 
-pandas_gbq.to_gbq(my_collection, table_id, project_id)
+pandas_gbq.to_gbq(collection, table_id, project_id)
+
+print("tableau exporté")
+
 ```
 
 Les étapes de travail sur BigQuery sont visibles sur cette page [Notion](https://www.notion.so/BigQuerry-DISCOGS-17f3c2440f4d8058b48ccba890050601?pvs=4)
