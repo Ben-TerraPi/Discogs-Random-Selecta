@@ -394,7 +394,7 @@ def random_youtube(genre, style, year):
 
 # Conclusion
 
-Arriver à ce stade je vous laisse analyser la struture du fichier streamlit [Random_title.py](https://github.com/Ben-TerraPi/Discogs/blob/main/random_selecta/Random_title.py)  et tester le résultat:
+Arrivé à ce stade je vous laisse analyser la struture du fichier streamlit [Random_title.py](https://github.com/Ben-TerraPi/Discogs/blob/main/random_selecta/Random_title.py)  et tester le résultat:
 
 https://discogs-random-selecta.streamlit.app/
 
