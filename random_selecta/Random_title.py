@@ -46,7 +46,7 @@ with col1:
                         )
 
     current_year = datetime.now().year
-    years = list(range(current_year, 1900, -1))
+    years = list(range(current_year, 1950, -1))
 
     year = st.selectbox("Select release year",
                         years,
