@@ -85,7 +85,7 @@ def random_youtube(genre, style, year):
     # Si des résultats sont trouvés
     if test != 0:
         # Album aléatoire
-        page_random = random.randint(1, results.pages)
+        page_random = random.randint(0, results.pages - 1)
         nb_results = len(results.page(page_random))
         k_random = random.randint(0, nb_results - 1)
         album = results.page(page_random)[k_random]
