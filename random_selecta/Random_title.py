@@ -21,7 +21,7 @@ with st.sidebar:
     st.caption("About:")
     st.write("Discogs Random Selecta is an application developped to query the Discogs database.")
     st.write("")
-    st.write("It renders a random album from your selections and displays an embedded video from Discogs. If no video is available, it will search directly on YouTube.")
+    st.write("It renders a random album infos from your selections and displays an embedded music video. If no video is available, it will search directly on YouTube to find the most relevant result.")
 
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Title
 
