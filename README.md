@@ -32,7 +32,7 @@ Au départ, ma volonté était de simplement lister ma collection en utilisant P
 
 J'ai commencé en utilisant **google collab** avec cette première ligne de code:
 
-`! pip install python3-discogs-client`
+`pip install python3-discogs-client`
 
 C'était le début d'un projet qui m'a passionné.
 
