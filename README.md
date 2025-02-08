@@ -197,7 +197,7 @@ def list_albums(genre, year):
 En testant `list_albums("Hip Hop",1986)` le résultat est de **4156** lignes avec en ligne 0 <Master 42835 'Whodini - Funky Beat'>
 
 Pourquoi un dataframe?
-Un simple `return results` ne donne comme résultats qu'un message du genre: <discogs_client.models.MixedPaginatedList at 0x1bbcb513230>
+Un simple `return results` ne donne comme résultats qu'un message semblable à celui-ci: <discogs_client.models.MixedPaginatedList at 0x1bbcb513230>
 
 
 ## Fonction random_album
