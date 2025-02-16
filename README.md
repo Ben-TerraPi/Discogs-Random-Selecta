@@ -90,10 +90,7 @@ Il était temps de créer le tableau .csv avec les informations de mon choix:
 |-----|-------|--------|------|-------|-------|-----------|-----------------|--------|--------|--------|------|------|-----|-----------|
 
 ```
-with open('collection.csv',
-          'w',
-          newline='',
-          encoding='utf-8') as csvfile:
+with open('collection.csv', 'w', newline='', encoding='utf-8') as csvfile:
     writer = csv.writer(csvfile)
     writer.writerow([
         'id',
