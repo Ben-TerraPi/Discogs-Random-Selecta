@@ -28,7 +28,7 @@ Au départ, ma volonté était de simplement lister ma collection en utilisant P
 
 # [my_collection](https://github.com/Ben-TerraPi/Discogs/tree/main/my_collection) : 1er dossier
 
-## scrap_discogs.py
+## [scrap_discogs.py](https://github.com/Ben-TerraPi/Discogs/tree/main/my_collection/scrap_discogs.py)
 
 J'ai commencé en utilisant **google collab** avec cette première ligne de code:
 
@@ -148,28 +148,88 @@ print("Collection exportée dans 'collection.csv'.")
 ```
 Mon tableau était créé : [collection.csv](https://github.com/Ben-TerraPi/Discogs/blob/main/collection.csv)
 
-### Création du fichier final
+## [Stats_coll.py](https://github.com/Ben-TerraPi/Discogs/tree/main/my_collection/Stats_coll.py)
+
+Ayant découvert le commentaire **#%%** permettant des cellules de code Jupyter-like sur **VS code** j'arrète de travailler avec **google collab** et fais des tests dans cette nouvelle fenêtre interactive.
+
+## [tracks.py](https://github.com/Ben-TerraPi/Discogs/tree/main/my_collection/tracks.py)
+
+En plus du fichier complet de mes albums je souhaite maintenant, à des fins d'analyses et de classement ultérieur, créer un fichier regroupant l'intégralité des morceaux, les tracklists de chaque albums dans un tableau plus sommaire.
+
+| album_id  | artist | album | track_id | title |
+|-----------|--------|-------|----------|-------|
+
+Le principe est le même que pour l'importation du précédent tableau mais la tracklist est une ligne de caractère unique comme on peut le constater sur cette nouvelle importation de données: [collection_tracks.csv](https://github.com/Ben-TerraPi/Discogs/blob/main/collection_tracks.csv)
+
+Pour résoudre ce problème j'ai codé une fonction pour extraire le nom de chaques morceaux dans un nouveau DataFrame et j'en profite pour leurs créer un ID unique.
 
 ```
-collection = pd.read_csv(r"C:\Users\benoi\code\Ben-TerraPi\Discogs\collection.csv")
+def extract_tracks(row):
+    tracklist_str = row["tracklist"]
+    pattern = r"<Track '([^']+)' '([^']+)'>"  
+    matches = re.findall(pattern, tracklist_str)
+    new_rows = []
+    for track_id, track_name in matches:
+        new_rows.append({
+            "album_id": row["id"],
+            "artist": row["artist"],
+            "album": row["album"],
+            "track_id": f"{row['id']}_{track_id}",
+            "title": track_name
+        })
+    
+    return new_rows
+
+#transformation et reconstruction DataFrame
+tracklist_data = []
+for _, row in df.iterrows():
+    try:
+        tracklist_data.extend(extract_tracks(row))
+    except Exception as e:
+        print(f"Erreur lors du traitement de la ligne {_}: {e}")
+        
+df_tracklist = pd.DataFrame(tracklist_data)
+```
+Le résultat: [my_tracks.csv](https://github.com/Ben-TerraPi/Discogs/blob/main/my_tracks.csv)
+
+# [export_gbq.py](https://github.com/Ben-TerraPi/Discogs/blob/main/export_gbq.py)
+
+Pour analyser ces nouveaux tableaux avec SQL je souhaite les exporter vers BigQuery.
+
+```
+import pandas as pd
+import pandas_gbq
+
+collection = pd.read_csv("collection.csv")
+collection_tracks = pd.read_csv("collection_tracks.csv")
+my_tracks = pd.read_csv("my_tracks.csv")
+tableau_genre = pd.read_csv("tableau_genre.csv")
 
 project_id = "discogs-random-selecta"
-table_id = "discogs-random-selecta.my_data.collection"
+dataset = "my_data"
 
-pandas_gbq.to_gbq(collection, table_id, project_id)
+dfs = [collection,
+       collection_tracks,
+       my_tracks,
+       tableau_genre
+       ]
 
-print("tableau exporté")
+def get_var_name(var):
+    for name, value in globals().items():
+        if value is var:
+            return name
+
+for df in dfs:
+  table_id = f"{project_id}.{dataset}.{get_var_name(df)}"
+  pandas_gbq.to_gbq(df, table_id, project_id)
+  
+print("tableaux exportés")
 
 ```
 
 Les étapes de travail sur BigQuery sont visibles sur cette page [Notion](https://www.notion.so/BigQuerry-DISCOGS-17f3c2440f4d8058b48ccba890050601?pvs=4)
 
 Le dashboard réalisé est visible directement sur [Looker Studio](https://lookerstudio.google.com/reporting/9555dbd8-4aef-4ba4-8924-44840306f7b6)
-
-
-## Stats_coll.py
-
-Ayant découvert le commentaire **#%%** permettant des cellules de code Jupyter-like sur **VS code** j'arrète de travailler avec **google collab** et fais des tests dans cette nouvelle fenêtre interactive avec le fichier [Stats_coll.py](https://github.com/Ben-TerraPi/Discogs/blob/main/my_collection/Stats_coll.py) 
 
 
 # [tests](https://github.com/Ben-TerraPi/Discogs/tree/main/tests) : 2ème dossier
