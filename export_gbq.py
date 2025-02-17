@@ -7,6 +7,7 @@ my_tracks = pd.read_csv("my_tracks.csv")
 tableau_genre = pd.read_csv("tableau_genre.csv")
 
 project_id = "discogs-random-selecta"
+dataset = "my_data"
 
 dfs = [collection,
        collection_tracks,
@@ -20,7 +21,7 @@ def get_var_name(var):
             return name
 
 for df in dfs:
-  table_id = f"discogs-random-selecta.my_data.{get_var_name(df)}"
+  table_id = f"{project_id}.{dataset}.{get_var_name(df)}"
   pandas_gbq.to_gbq(df, table_id, project_id)
   
 print("tableaux exportés")
