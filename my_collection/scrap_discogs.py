@@ -28,11 +28,8 @@ for item in me.collection_folders[0].releases:
 
 #Import de ma Collection
 
-# Export fichier CSV
-with open('collection.csv',
-          'w',
-          newline='',
-          encoding='utf-8') as csvfile:
+# Création du CSV
+with open('collection.csv', 'w', newline='', encoding='utf-8') as csvfile:
     writer = csv.writer(csvfile)
     writer.writerow([
         'id',
@@ -86,15 +83,4 @@ with open('collection.csv',
             image_url
         ])
 
-print("Collection exportée dans 'collection.csv'.")
-
-#>>>>>>>>>>>>>>>>>> Export vers Bigquery
-
-collection = pd.read_csv(r"C:\Users\benoi\code\Ben-TerraPi\Discogs\collection.csv")
-
-project_id = "discogs-random-selecta"
-table_id = "discogs-random-selecta.my_data.collection"
-
-pandas_gbq.to_gbq(collection, table_id, project_id)
-
-print("tableau exporté")
+print("Collection impotée dans 'collection.csv'.")
