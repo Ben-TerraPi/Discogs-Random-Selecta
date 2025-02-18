@@ -154,14 +154,14 @@ Ayant découvert le commentaire **#%%** permettant des cellules de code Jupyter-
 
 ## [tracks.py](https://github.com/Ben-TerraPi/Discogs/tree/main/my_collection/tracks.py)
 
-En plus du fichier complet de mes albums je souhaite maintenant, à des fins d'analyses et de classement ultérieur, créer un fichier regroupant l'intégralité des morceaux, les tracklists de chaque albums dans un tableau plus sommaire.
+En plus du fichier complet de mes albums, je souhaite maintenant, à des fins d'analyses et de classement ultérieur, créer un fichier regroupant l'intégralité des morceaux de chaque album dans un tableau plus sommaire.
 
 | album_id  | artist | album | track_id | title |
 |-----------|--------|-------|----------|-------|
 
-Le principe est le même que pour l'importation du précédent tableau mais la tracklist est une ligne de caractère unique comme on peut le constater sur cette nouvelle importation de données: [collection_tracks.csv](https://github.com/Ben-TerraPi/Discogs/blob/main/collection_tracks.csv)
+Le principe est le même que pour l'importation du précédent tableau, mais la tracklist est une ligne de caractères unique, comme on peut le constater sur cette nouvelle importation de données :[collection_tracks.csv](https://github.com/Ben-TerraPi/Discogs/blob/main/collection_tracks.csv)
 
-Pour résoudre ce problème j'ai codé une fonction pour extraire le nom de chaques morceaux dans un nouveau DataFrame et j'en profite pour leurs créer un ID unique.
+Pour résoudre ce problème, j'ai codé une fonction pour extraire le nom de chaque morceau dans un nouveau DataFrame et j'en profite pour leur créer un ID unique.
 
 ```
 def extract_tracks(row):
