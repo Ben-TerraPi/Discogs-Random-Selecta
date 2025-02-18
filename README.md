@@ -191,7 +191,7 @@ Le résultat: [my_tracks.csv](https://github.com/Ben-TerraPi/Discogs/blob/main/m
 
 # [export_gbq.py](https://github.com/Ben-TerraPi/Discogs/blob/main/export_gbq.py)
 
-Pour analyser ces nouveaux tableaux avec SQL je souhaite les exporter vers BigQuery.
+Pour sauvegarder et analyser ces nouveaux tableaux avec SQL je souhaite les exporter vers BigQuery.
 
 ```
 import pandas as pd
