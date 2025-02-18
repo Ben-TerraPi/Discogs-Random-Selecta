@@ -36,20 +36,13 @@ J'ai commencé en utilisant **google collab** avec cette première ligne de code
 
 C'était le début d'un projet qui m'a passionné.
 
-### import
-
-```
-import discogs_client
-import csv
-import pandas as pd 
-import pandas_gbq
-```
-
 ### Discogs Client & User token
 
 Je me suis connecté à mon compte grâce à la génération d'un **token** développeur qui me permet de naviguer dans l'API discogs.
 
 ```
+import discogs_client
+
 d = discogs_client.Client("ExampleApplication/0.1", user_token= "secret")
 me = d.identity()
 ```
@@ -90,6 +83,8 @@ Il était temps de créer le tableau .csv avec les informations de mon choix:
 |-----|-------|--------|------|-------|-------|-----------|-----------------|--------|--------|--------|------|------|-----|-----------|
 
 ```
+import csv
+
 with open('collection.csv', 'w', newline='', encoding='utf-8') as csvfile:
     writer = csv.writer(csvfile)
     writer.writerow([
@@ -164,6 +159,8 @@ Le principe est le même que pour l'importation du précédent tableau, mais la 
 Pour résoudre ce problème, j'ai codé une fonction pour extraire le nom de chaque morceau dans un nouveau DataFrame et j'en profite pour leur créer un ID unique.
 
 ```
+import pandas as pd
+
 def extract_tracks(row):
     tracklist_str = row["tracklist"]
     pattern = r"<Track '([^']+)' '([^']+)'>"  
