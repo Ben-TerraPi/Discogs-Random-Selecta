@@ -259,13 +259,13 @@ Un simple `return results` ne donne comme résultats qu'un message semblable à 
 Maintenant que j'ai une liste exhaustive selon mes critères et que j'ai compris que mes recherches sont regroupées en plusieurs pages, j'aimerais, à l'image d'un bac à vinyles que l'on fouille, tomber sur un album aléatoirement.
 
 ```
-import random    #rajouté à ma liste d'import au début du fichier
+import random 
 
 def random_album(genre, year):
     results = d.search(genre=genre,year=year)
     test = len(results)
     if test != 0:
-        page_random = random.randint(1,results.pages)
+        page_random = random.randint(0,results.pages)
         nb_results = len(results.page(page_random))
         k_random = random.randint(0,nb_results-1)
         return results.page(page_random)[k_random]
