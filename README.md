@@ -36,20 +36,13 @@ J'ai commencé en utilisant **google collab** avec cette première ligne de code
 
 C'était le début d'un projet qui m'a passionné.
 
-### import
-
-```
-import discogs_client
-import csv
-import pandas as pd 
-import pandas_gbq
-```
-
 ### Discogs Client & User token
 
 Je me suis connecté à mon compte grâce à la génération d'un **token** développeur qui me permet de naviguer dans l'API discogs.
 
 ```
+import discogs_client
+
 d = discogs_client.Client("ExampleApplication/0.1", user_token= "secret")
 me = d.identity()
 ```
@@ -90,6 +83,8 @@ Il était temps de créer le tableau .csv avec les informations de mon choix:
 |-----|-------|--------|------|-------|-------|-----------|-----------------|--------|--------|--------|------|------|-----|-----------|
 
 ```
+import csv
+
 with open('collection.csv', 'w', newline='', encoding='utf-8') as csvfile:
     writer = csv.writer(csvfile)
     writer.writerow([
@@ -154,16 +149,18 @@ Ayant découvert le commentaire **#%%** permettant des cellules de code Jupyter-
 
 ## [tracks.py](https://github.com/Ben-TerraPi/Discogs/tree/main/my_collection/tracks.py)
 
-En plus du fichier complet de mes albums je souhaite maintenant, à des fins d'analyses et de classement ultérieur, créer un fichier regroupant l'intégralité des morceaux, les tracklists de chaque albums dans un tableau plus sommaire.
+En plus du fichier complet de mes albums, je souhaite maintenant, à des fins d'analyses et de classement ultérieur, créer un fichier regroupant l'intégralité des morceaux de chaque album dans un tableau plus sommaire.
 
 | album_id  | artist | album | track_id | title |
 |-----------|--------|-------|----------|-------|
 
-Le principe est le même que pour l'importation du précédent tableau mais la tracklist est une ligne de caractère unique comme on peut le constater sur cette nouvelle importation de données: [collection_tracks.csv](https://github.com/Ben-TerraPi/Discogs/blob/main/collection_tracks.csv)
+Le principe est le même que pour l'importation du précédent tableau, mais la tracklist est une ligne de caractères unique, comme on peut le constater sur cette nouvelle importation de données :[collection_tracks.csv](https://github.com/Ben-TerraPi/Discogs/blob/main/collection_tracks.csv)
 
-Pour résoudre ce problème j'ai codé une fonction pour extraire le nom de chaques morceaux dans un nouveau DataFrame et j'en profite pour leurs créer un ID unique.
+Pour résoudre ce problème, j'ai codé une fonction pour extraire le nom de chaque morceau dans un nouveau DataFrame et j'en profite pour leur créer un ID unique.
 
 ```
+import pandas as pd
+
 def extract_tracks(row):
     tracklist_str = row["tracklist"]
     pattern = r"<Track '([^']+)' '([^']+)'>"  
@@ -194,7 +191,7 @@ Le résultat: [my_tracks.csv](https://github.com/Ben-TerraPi/Discogs/blob/main/m
 
 # [export_gbq.py](https://github.com/Ben-TerraPi/Discogs/blob/main/export_gbq.py)
 
-Pour analyser ces nouveaux tableaux avec SQL je souhaite les exporter vers BigQuery.
+Pour sauvegarder et analyser ces nouveaux tableaux avec SQL je souhaite les exporter vers BigQuery.
 
 ```
 import pandas as pd
@@ -262,7 +259,7 @@ Un simple `return results` ne donne comme résultats qu'un message semblable à 
 Maintenant que j'ai une liste exhaustive selon mes critères et que j'ai compris que mes recherches sont regroupées en plusieurs pages, j'aimerais, à l'image d'un bac à vinyles que l'on fouille, tomber sur un album aléatoirement.
 
 ```
-import random    #rajouté à ma liste d'import au début du fichier
+import random 
 
 def random_album(genre, year):
     results = d.search(genre=genre,year=year)
@@ -354,7 +351,7 @@ Dans ce dossier on retrouve:
 
 * [Random_title.py](https://github.com/Ben-TerraPi/Discogs/blob/main/random_selecta/Random_title.py), sert au lancement de l'application Streamlit.
 
-* [list_styles.py](https://github.com/Ben-TerraPi/Discogs/blob/main/random_selecta/list_styles.py), dans lequelle j'ai créé un dictionnaire pour chaques styles musicaux présent dans chaques genres musicaux référencés par Discogs, cela sera intégré pour les selectbox sur streamlit.
+* [list_styles.py](https://github.com/Ben-TerraPi/Discogs/blob/main/random_selecta/list_styles.py), dans lequelle j'ai créé les listes et un dictionnaire pour chaques styles musicaux présent dans chaques genres musicaux référencés par Discogs, cela sera intégré pour les selectbox sur streamlit.
 
 ```
 genres_styles = {
@@ -400,53 +397,58 @@ def random_youtube(genre, style, year):
     # Si des résultats sont trouvés
     if test != 0:
         # Album aléatoire
-        page_random = random.randint(1, results.pages)
+        page_random = random.randint(0, results.pages - 1)
         nb_results = len(results.page(page_random))
         k_random = random.randint(0, nb_results - 1)
         album = results.page(page_random)[k_random]
 
-        # Info album
-        title = album.title
-        if hasattr(album, 'images') and album.images:
-            image = album.images[0]["uri"]
-        link = album.url
+        if album:
 
-        # Recherche Youtube
-        str = title.lower()
-        str2 = str.replace(" ", "+")
-        str3 = str2.replace("&", "and")
-        url = f'https://www.youtube.com/results?search_query={str3}'
+            # Info album
+            title = album.title
+            if hasattr(album, 'images') and album.images:
+                image = album.images[0]["uri"]
+            link = album.url
 
-        # Vidéo Discogs
-        if hasattr(album, 'videos') and album.videos:
-            nb = len(album.videos)
-            if nb > 0:
-                key_random = random.randint(0, nb - 1)
-                discogs_videos = album.videos[key_random].url
-        else:
-            # API YouTube
-            youtube = build('youtube', 'v3', developerKey=api_key)
-            request = youtube.search().list(
-                part="snippet",
-                q=str,
-                type="video",
-                maxResults=1
-            )
-            try:
-                response = request.execute()
-            except:
-                response = None
+            # Recherche Youtube
+            str = title.lower()
+            str2 = str.replace(" ", "+")
+            str3 = str2.replace("&", "and")
+            url = f'https://www.youtube.com/results?search_query={str3}'
 
-            # Résultats recherche YouTube
-            if response:
-                youtube_results = []
-                for item in response['items']:
-                    video_id = item['id']['videoId']
-                    video_title = item['snippet']['title']
-                    video_url = f"https://www.youtube.com/watch?v={video_id}"
-                    youtube_results.append({'title': video_title, 'url': video_url})
+            # Vidéo Discogs
+            if hasattr(album, 'videos') and album.videos:
+                nb = len(album.videos)
+                if nb > 0:
+                    key_random = random.randint(0, nb - 1)
+                    discogs_videos = album.videos[key_random].url
+            else:
+                # API YouTube
+                youtube = build('youtube', 'v3', developerKey=api_key)
+                request = youtube.search().list(
+                    part="snippet",
+                    q=str3,
+                    type="video",
+                    maxResults=1
+                )
+                try:
+                    response = request.execute()
+                except:
+                    response = None
+
+                # Résultats recherche YouTube
+                if response:
+                    youtube_results = []
+                    for item in response['items']:
+                        video_id = item['id']['videoId']
+                        video_title = item['snippet']['title']
+                        video_url = f"https://www.youtube.com/watch?v={video_id}"
+                        youtube_results.append({'title': video_title, 'url': video_url})
 
     return title, image, url, link, discogs_videos, youtube_results, test
+
+
+print("utils.py loaded successfully")
 ```
 
 # Conclusion
