@@ -83,63 +83,67 @@ Il était temps de créer le tableau .csv avec les informations de mon choix:
 |-----|-------|--------|------|-------|-------|-----------|-----------------|--------|--------|--------|------|------|-----|-----------|
 
 ```
-import csv
+def export_collection_to_csv(me):
+    # list collection
+    data = []
+    for item in me.collection_folders[0].releases:
+        data.append(item)
 
-with open('collection.csv', 'w', newline='', encoding='utf-8') as csvfile:
-    writer = csv.writer(csvfile)
-    writer.writerow([
-        'id',
-        'title',
-        'artist',
-        'year',
-        'genre',
-        'style',
-        'master_id',
-        'release_country',
-        'labels',
-        'format',
-        'rating',
-        'have',
-        'want',
-        'url',
-        'image_url'
-    ])
+    # Import de ma Collection
 
-    for release in data:
-        release_data = release.release
-
-        genres = ", ".join(release_data.genres) if release_data.genres else "N/A"
-        styles = ", ".join(release_data.styles) if release_data.styles else "N/A"
-        master_id = release_data.master.id if release_data.master else "N/A"
-        country = release_data.country if release_data.country else "N/A"
-        labels = ", ".join([label.name for label in release_data.labels]) if release_data.labels else "N/A"
-        formats = ", ".join([", ".join(fmt['descriptions']) for fmt in release_data.formats]) if release_data.formats else "N/A"
-        community_rating = (
-             release_data.community.rating.average if release_data.community and release_data.community.rating else "N/A"
-        )
-        community_have = release_data.community.have if release_data.community.have else "N/A"
-        community_want = release_data.community.want if release_data.community.want else "N/A"
-        image_url = release_data.images[0]["uri"] if release_data.images else "N/A"
-
+    # Création du CSV
+    with open('collection.csv', 'w', newline='', encoding='utf-8') as csvfile:
+        writer = csv.writer(csvfile)
         writer.writerow([
-            release.id,
-            release_data.title,
-            release_data.artists[0].name if release_data.artists else "N/A",
-            release_data.year,
-            genres,
-            styles,
-            master_id,
-            country,
-            labels,
-            formats,
-            community_rating,
-            community_have,
-            community_want,
-            release_data.url,
-            image_url
+            'id',
+            'title',
+            'artist',
+            'year',
+            'genre',
+            'style',
+            'master_id',
+            'release_country',
+            'labels',
+            'format',
+            'rating',
+            'have',
+            'want',
+            'url',
+            'image_url'
         ])
 
-print("Collection exportée dans 'collection.csv'.")
+        for release in data:
+
+            release_data = release.release
+
+            artist_name = release_data.artists[0].name
+            artist_name = re.sub(r'\(\d+\)', '', artist_name).strip()
+            genres = ", ".join(release_data.genres) if release_data.genres else "N/A"
+            styles = ", ".join(release_data.styles) if release_data.styles else "N/A"
+            master_id = release_data.master.id if release_data.master else "N/A"
+            labels = ", ".join([label.name for label in release_data.labels]) if release_data.labels else "N/A"
+            formats = ", ".join([", ".join(fmt['descriptions']) for fmt in release_data.formats]) if release_data.formats else "N/A"
+            image_url = release_data.images[0]["uri"] if release_data.images else "N/A"
+
+            writer.writerow([
+                release.id,
+                release_data.title,
+                artist_name,
+                release_data.year,
+                genres,
+                styles,
+                master_id,
+                release_data.country,
+                labels,
+                formats,
+                release_data.community.rating.average,
+                release_data.community.have,
+                release_data.community.want,
+                release_data.url,
+                image_url
+            ])
+
+    print("Collection importée dans 'collection.csv'.")
 ```
 Mon tableau était créé : [collection.csv](https://github.com/Ben-TerraPi/Discogs/blob/main/collection.csv)
 
