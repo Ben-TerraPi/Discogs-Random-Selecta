@@ -1,6 +1,7 @@
 import discogs_client
 import streamlit as st
 import csv
+import pandas as pd
 import re
 
 # Discogs Client & User token
@@ -12,7 +13,10 @@ d = discogs_client.Client("ExampleApplication/0.1", user_token= token)
 
 me = d.identity()
 
+#############################################################################################################
+
 def export_collection_to_csv(me):
+    ''' export de ma collection personnelle depuis Discogs'''
     # list collection
     data = []
     for item in me.collection_folders[0].releases:
@@ -73,3 +77,40 @@ def export_collection_to_csv(me):
             ])
 
     print("Collection importée dans 'collection.csv'.")
+
+#########################################################################################################
+
+def export_tracks_to_dataframe(me):
+    ''' expot de mes track dans un dataframe avant nettoyage et création du csv'''
+    # List collection
+    data = []
+    for item in me.collection_folders[0].releases:
+        data.append(item)
+
+    # track data
+    tracklist_data = []
+
+    for item in data:
+        item_data = item.release
+
+        artist_name = item_data.artists[0].name
+        artist_name = re.sub(r'\(\d+\)', '', artist_name).strip()
+
+        # Extract track information
+        tracklist_str = str(item_data.tracklist)
+        pattern = r"<Track '([^']+)' '([^']+)'>"
+        matches = re.findall(pattern, tracklist_str)
+
+        for track_id, track_name in matches:
+            tracklist_data.append({
+                "album_id": item.id,
+                "artist": artist_name,
+                "album": item_data.title,
+                "track_id": f"{item.id}_{track_id}",
+                "title": track_name
+            })
+
+    # Create DataFrame
+    df_tracklist = pd.DataFrame(tracklist_data)
+
+    return df_tracklist
