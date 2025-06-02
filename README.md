@@ -178,16 +178,26 @@ def extract_tracks(row):
         })
     
     return new_rows
+```
+Ensuite je peux créer mon csv
 
-#transformation et reconstruction DataFrame
-tracklist_data = []
-for _, row in df.iterrows():
-    try:
-        tracklist_data.extend(extract_tracks(row))
-    except Exception as e:
-        print(f"Erreur lors du traitement de la ligne {_}: {e}")
-        
-df_tracklist = pd.DataFrame(tracklist_data)
+```
+def create_my_tracks_csv(df, output_file="my_tracks.csv"):
+    """Transforme et reconstruit le DataFrame en utilisant les données de pistes extraites,
+    puis enregistre le résultat dans un fichier CSV."""
+
+    tracklist_data = []
+    for index, row in df.iterrows():
+        try:
+            tracklist_data.extend(extract_tracks(row))
+        except Exception as e:
+            print(f"Erreur {index}: {e}")
+
+    df_tracklist = pd.DataFrame(tracklist_data)
+
+    df_tracklist.to_csv(output_file, index=False)
+
+    print(f"tracks importée dans {output_file}")
 ```
 Le résultat: [my_tracks.csv](https://github.com/Ben-TerraPi/Discogs/blob/main/my_tracks.csv)
 
