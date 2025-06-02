@@ -1,7 +1,5 @@
 import pandas as pd
 import discogs_client
-import csv
-import re
 import streamlit as st
 from utils import export_tracks_to_csv , create_my_tracks_csv
 
