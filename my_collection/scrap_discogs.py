@@ -22,5 +22,5 @@ data = []
 for item in me.collection_folders[0].releases:
     data.append(item)
 
-# Création du CSV
+# Création du csv regroupant ma collection
 export_collection_to_csv(me)

@@ -80,37 +80,71 @@ def export_collection_to_csv(me):
 
 #########################################################################################################
 
-def export_tracks_to_dataframe(me):
-    ''' expot de mes track dans un dataframe avant nettoyage et création du csv'''
-    # List collection
+def export_tracks_to_csv(me):
+    '''export des tracks de ma collection dans un csv'''
+    # list collection
     data = []
     for item in me.collection_folders[0].releases:
         data.append(item)
 
-    # track data
+    # Création du 1er CSV
+    with open('collection_tracks.csv', 'w', newline='', encoding='utf-8') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow(['id', 'artist', 'album', 'tracklist'])
+
+        for item in data:
+            item_data = item.release
+
+            artist_name = item_data.artists[0].name
+            artist_name = re.sub(r'\(\d+\)', '', artist_name).strip()
+
+            writer.writerow([
+                item.id,
+                artist_name,
+                item_data.title,
+                item_data.tracklist
+            ])
+
+    print("tracks importée dans collection_tracks.csv")
+
+    #########################################################################################################
+
+def extract_tracks(row):
+    '''fonction pour extraire le nom des tracks pour création de lignes unique'''
+
+    tracklist_str = row["tracklist"]
+    pattern = r"<Track '([^']+)' '([^']+)'>"  
+    matches = re.findall(pattern, tracklist_str)
+    new_rows = []
+    for track_id, track_name in matches:
+        new_rows.append({
+            "album_id": row["id"],
+            "artist": row["artist"],
+            "album": row["album"],
+            "track_id": f"{row['id']}_{track_id}",
+            "title": track_name
+        })
+    
+    return new_rows
+
+#############################################################################################################
+
+def create_my_tracks_csv(df, output_file="my_tracks.csv"):
+    """Transforme et reconstruit le DataFrame en utilisant les données de pistes extraites,
+    puis enregistre le résultat dans un fichier CSV."""
+
     tracklist_data = []
+    for index, row in df.iterrows():
+        try:
+            tracklist_data.extend(extract_tracks(row))
+        except Exception as e:
+            print(f"Erreur {index}: {e}")
 
-    for item in data:
-        item_data = item.release
-
-        artist_name = item_data.artists[0].name
-        artist_name = re.sub(r'\(\d+\)', '', artist_name).strip()
-
-        # Extract track information
-        tracklist_str = str(item_data.tracklist)
-        pattern = r"<Track '([^']+)' '([^']+)'>"
-        matches = re.findall(pattern, tracklist_str)
-
-        for track_id, track_name in matches:
-            tracklist_data.append({
-                "album_id": item.id,
-                "artist": artist_name,
-                "album": item_data.title,
-                "track_id": f"{item.id}_{track_id}",
-                "title": track_name
-            })
-
-    # Create DataFrame
     df_tracklist = pd.DataFrame(tracklist_data)
 
-    return df_tracklist
+    df_tracklist.to_csv(output_file, index=False)
+
+    print(f"tracks importée dans {output_file}")
+
+# Exemple d'utilisation :
+# create_tracks_csv(df)
