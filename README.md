@@ -163,8 +163,6 @@ Le principe est le même que pour l'importation du précédent tableau, mais la 
 Pour résoudre ce problème, j'ai codé une fonction pour extraire le nom de chaque morceau dans un nouveau DataFrame et j'en profite pour leur créer un ID unique.
 
 ```
-import pandas as pd
-
 def extract_tracks(row):
     tracklist_str = row["tracklist"]
     pattern = r"<Track '([^']+)' '([^']+)'>"  

@@ -145,6 +145,3 @@ def create_my_tracks_csv(df, output_file="my_tracks.csv"):
     df_tracklist.to_csv(output_file, index=False)
 
     print(f"tracks importée dans {output_file}")
-
-# Exemple d'utilisation :
-# create_tracks_csv(df)
