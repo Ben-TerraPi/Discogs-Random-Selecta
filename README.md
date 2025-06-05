@@ -243,6 +243,8 @@ Le dashboard réalisé est visible directement sur [Looker Studio](https://looke
 
 # [tests](https://github.com/Ben-TerraPi/Discogs/tree/main/tests) : 2ème dossier
 
+J'utilise ce dossier pour tester différentes recherches et fonctions.
+
 ## Fonction de départ
 
 Cette première fonction répond au besoin de rechercher l'ensemble des albums d'un genre précis et d'une année donnée.
