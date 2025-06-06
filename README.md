@@ -243,13 +243,11 @@ Le dashboard réalisé est visible directement sur [Looker Studio](https://looke
 
 # [tests](https://github.com/Ben-TerraPi/Discogs/tree/main/tests) : 2ème dossier
 
-S'ensuit une phase laborieuse de tests divers avec l'API.
+J'utilise ce dossier pour tester différentes recherches et fonctions.
 
-Le contenu du site Discogs étant mis à jour par sa communauté, son code est une accumulation de modifications. À en croire les forums, il est écrit par une multitude de codeurs se succédant.
+## Fonction de départ
 
-## fonctions de départ
-
-De mes tests découlera une première fonction répondant au besoin de rechercher l'ensemble des albums d'un genre précis et d'une année donnée.
+Cette première fonction répond au besoin de rechercher l'ensemble des albums d'un genre précis et d'une année donnée.
 
 ```
 def list_albums(genre, year):
