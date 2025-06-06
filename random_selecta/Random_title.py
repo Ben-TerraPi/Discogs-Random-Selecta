@@ -40,7 +40,7 @@ with col1:
 
     styles = genres_styles.get(genre, None)
 
-    style = st.selectbox("Select style  ( The deeper you go, the fewer results you'll find )",
+    style = st.selectbox("Select style  ( Optional, The deeper you go the fewer results you'll find )",
                         styles,
                         index=None
                         )
@@ -48,7 +48,7 @@ with col1:
     current_year = datetime.now().year
     years = list(range(current_year, 1950, -1))
 
-    year = st.selectbox("Select release year",
+    year = st.selectbox("Select release year ( Optional )",
                         years,
                         index=None,
                         )
@@ -60,11 +60,17 @@ with col2:
 st.write("")
 
 if st.button("Generate Track", type="primary"):
-    if genre is None or style is None or year is None:
-        st.warning("Please select a genre, style, and release year before generating.")
-    else:
-        # Appel de la fonction random_youtube
-        result = random_youtube(genre, style, year)
+    if genre is None:
+        st.warning("Please select a genre before generating.")
+    else:   # Appel de la fonction random_youtube
+        if style is None and year is None:
+            result = random_youtube(genre=genre)
+        elif style is None:
+            result = random_youtube(genre=genre, year=year)
+        elif year is None:
+            result = random_youtube(genre=genre, style=style)
+        else:
+            result = random_youtube(genre=genre, style=style, year=year)
         
         if result is None or len(result) != 7:
             st.warning("An error occurred, no valid result returned.")
@@ -104,5 +110,6 @@ if st.button("Generate Track", type="primary"):
 
             else:
                 st.warning("No results found. Try a different selection.")
+
 
                 

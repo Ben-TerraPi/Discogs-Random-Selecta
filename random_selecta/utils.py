@@ -70,8 +70,18 @@ def random_selecta(genre,style, year):
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> randm selecta + youtube
 
 
-def random_youtube(genre, style, year):
-    results = d.search(genre=genre, style=style, year=year)
+def random_youtube(genre, style= None, year= None):
+    # results = d.search(genre=genre, style=style, year=year)
+    # test = len(results)
+
+    if style is None and year is None:
+        results = d.search(genre=genre)
+    elif style is None:
+        results = d.search(genre=genre, year=year)
+    elif year is None:
+        results = d.search(genre=genre, style=style)
+    else:
+        results = d.search(genre=genre, style=style, year=year)
     test = len(results)
 
     # Valeurs par défaut
