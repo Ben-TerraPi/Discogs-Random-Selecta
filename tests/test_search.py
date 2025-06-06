@@ -15,9 +15,9 @@ d = discogs_client.Client("ExampleApplication/0.1", user_token= token)
 
 # https://www.discogs.com/release/20348713-MC-Solaar-Prose-Combat
 
-# print(dir(d.release(20348713)))
+print(dir(d.release(20348713)))
 
-# release = d.release(20348713)
+release = d.release(20348713)
 
 # print(release.id)
 # print(release.title)

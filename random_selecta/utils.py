@@ -112,7 +112,7 @@ def random_youtube(genre, style= None, year= None):
             str = title.lower()
             str2 = str.replace(" ", "+")
             str3 = str2.replace("&", "and")
-            url = f'https://www.youtube.com/results?search_query={str3}'
+            url = f'https://www.youtube.com/results?search_query={str3}+audio'
 
             # Vidéo Discogs
             if hasattr(album, 'videos') and album.videos:
