@@ -16,8 +16,8 @@ d = discogs_client.Client("ExampleApplication/0.1", user_token= token)
 
 api_key = st.secrets["youtube"]["api_key"]
 
-
-#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>LIST ALBUMS
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HISTORIQUE DES FONCTIONS
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> N°1 LIST ALBUMS
 
 def list_albums(genre, year):
     list = []
@@ -26,7 +26,7 @@ def list_albums(genre, year):
         list.append(el)
     return pd.DataFrame(list)
 
-#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>RANDOM ALBUM
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>N°2 RANDOM ALBUM
 
 def random_album(genre, year):
     results = d.search(genre=genre,year=year)
@@ -39,7 +39,7 @@ def random_album(genre, year):
     else:
         return "todo"
 
-#>>>>>>>>>>>>>>>>>>>>>>>> Random SELECTA no videos
+#>>>>>>>>>>>>>>>>>>>>>>>> N°3 Random SELECTA no videos
 
 def random_selecta(genre,style, year):
     results = d.search(genre=genre,style=style, year=year)
@@ -67,8 +67,7 @@ def random_selecta(genre,style, year):
     else:
         return "todo"
 
-
-#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> randm selecta + youtube
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Nettoyage
 
 def clean_string(s):
     # Nettoie la chaîne
@@ -81,6 +80,7 @@ def artist_and_title_in_video(video_title, artist, title):
 def artist_in_video(video_title, artist):
     return clean_string(artist) in clean_string(video_title)
 
+#>>>>>>>>>>>>>>>>>>>>>>>>>>> FONCTION FINALE randm selecta + youtube
 
 def random_youtube(genre, style= None, year= None):
     # results = d.search(genre=genre, style=style, year=year)
@@ -98,11 +98,21 @@ def random_youtube(genre, style= None, year= None):
 
     # Valeurs par défaut
     title = None
+    artist = None
     image = "image/default_cover.png" 
     url = None
     link = None
     discogs_videos = None
     youtube_results = []
+    year_val = None
+    country = None
+    genres = []
+    styles = []
+    labels = []
+    tracklist = []
+    track_title = None
+    notes = None
+    formats = []
     
     # Si des résultats sont trouvés
     if test != 0:
@@ -117,9 +127,33 @@ def random_youtube(genre, style= None, year= None):
             # Info album
             title = album.title
             artist = album.artists[0].name if hasattr(album, 'artists') and album.artists else ""
+
             if hasattr(album, 'images') and album.images:
                 image = album.images[0]["uri"]
+
             link = album.url
+            year_val = getattr(album, 'year', None)
+            country = getattr(album, 'country', None)
+            genres = getattr(album, 'genres', [])
+            styles = getattr(album, 'styles', [])
+            
+            if hasattr(album, 'labels'):
+                for label in album.labels:
+                    labels.append({
+                        'name': getattr(label, 'name', ''),
+                        'url': getattr(label, 'url', None)
+                    })
+
+            if hasattr(album, 'tracklist'):
+                for track in album.tracklist:
+                    tracklist.append({
+                        'position': getattr(track, 'position', ''),
+                        'title': getattr(track, 'title', ''),
+                        'duration': getattr(track, 'duration', '')
+                    })
+            notes = getattr(album, 'notes', None)
+            formats = [fmt['name'] for fmt in getattr(album, 'formats', [])] if hasattr(album, 'formats') else []
+            
 
             # Recherche Youtube (lien cliquable)
             str = title.lower()
@@ -134,8 +168,17 @@ def random_youtube(genre, style= None, year= None):
                     key_random = random.randint(0, nb - 1)
                     discogs_videos = album.videos[key_random].url
             else:
+                if tracklist:
+                    valid_tracks = [track for track in tracklist if track['title']]
+                    if valid_tracks:
+                        random_track = random.choice(valid_tracks)
+                        track_title = random_track['title']
+                if track_title:
+                    query = f"{artist} - {track_title} audio"
+                else:
+                    query = f"{artist} - {title} audio"
+
                 # API YouTube
-                query = f"{artist} - {title} audio"
                 youtube = build('youtube', 'v3', developerKey=api_key)
                 request = youtube.search().list(
                     part="snippet",
@@ -168,10 +211,28 @@ def random_youtube(genre, style= None, year= None):
                 if best_artist_and_title:
                     youtube_results = [best_artist_and_title] + [res for res in youtube_results if res != best_artist_and_title]
                 elif best_artist:
-                    youtube_results = [best_artist] + [res for res in youtube_results if res != best_artist]                     
+                    youtube_results = [best_artist] + [res for res in youtube_results if res != best_artist]
 
-    return title, image, url, link, discogs_videos, youtube_results, test
+            # dictionnaire des résultats                   
+            result = {
+                    'title': title,
+                    'artist': artist,
+                    'year': year_val,
+                    'country': country,
+                    'genres': genres,
+                    'styles': styles,
+                    'labels': labels,
+                    'tracklist': tracklist,
+                    'notes': notes,
+                    'formats': formats,
+                    'image': image,
+                    'url': url,
+                    'link': link,
+                    'discogs_videos': discogs_videos,
+                    'youtube_results': youtube_results,
+                    'nb_results': test
+                }
+    return result
 
 
 print("utils.py loaded successfully")
-

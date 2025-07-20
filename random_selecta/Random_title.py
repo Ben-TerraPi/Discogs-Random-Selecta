@@ -72,28 +72,49 @@ if st.button("Generate Track", type="primary", use_container_width=True):
         else:
             result = random_youtube(genre=genre, style=style, year=year)
         
-        if result is None or len(result) != 7:
+        if not result:
             st.warning("An error occurred, no valid result returned.")
         else:
-            title, image, url, link, discogs_videos, youtube_results, test = result
+    # Accès aux infos
+            title = result['title']
+            artist = result['artist']
+            year = result['year']
+            image = result['image']
+            url = result['url']
+            link = result['link']
+            discogs_videos = result['discogs_videos']
+            youtube_results = result['youtube_results']
+            test = result['nb_results']
+            genres = result['genres']
+            styles = result['styles']
+            labels = result['labels']
+            tracklist = result['tracklist']
+            notes = result['notes']
+            formats = result['formats']
 
             if test == 0:
                 st.warning("No result, choose a different year")
             elif title:
                 st.write("")
-                col1, col2 = st.columns([0.3, 0.7], gap="large")
+                col1, col2, col3 = st.columns([3,3,3])
                 with col1:
-                    st.write(f"Album found from {test} results:")
+                    st.write(f"Album found from **{test}** results:")
 
                 with col2:
-                    st.write("Random Track:")
+                    st.write(f"[Discogs Release Page]({link})")
+
+                with col3:
+                    st.write(f"[YouTube Search Results]({url})")
 
                 col1, col2 = st.columns([0.3, 0.7], gap="large")
-                # st.write("")
-                with col1:
-                    st.write(f"[Discogs Release Page]({link})")
-                    st.write(f"[YouTube Search Results]({url})")  
-                    st.write(f"#### {title}")
+                with col1: 
+                    st.write(f"#### **{title}**")
+                    if result['labels']:
+                        for label in result['labels']:
+                            if label['url']:
+                                st.write(f"**Label**: [{label['name']}]({label['url']})")
+                            else:
+                                st.write(f"**Label**: {label['name']}")
                     if image:
                         st.image(image, use_container_width=True)
                     else:
@@ -114,5 +135,14 @@ if st.button("Generate Track", type="primary", use_container_width=True):
             else:
                 st.warning("No results found. Try a different selection.")
 
+    genre_str = ", ".join(genres)
+    style_str = ", ".join(styles)
+    st.write(f"**Genre**: {genre_str} &nbsp; | &nbsp; **Style**: {style_str} &nbsp; | &nbsp; **Year**: {year}", unsafe_allow_html=True)
 
-                
+    if result['tracklist']:
+        st.write("**Tracklist :**")
+        track_lines = [
+            f"{track['position']} - {track['title']} ({track['duration']})"
+            for track in result['tracklist']
+        ]
+        st.write("<br>".join(track_lines), unsafe_allow_html=True)

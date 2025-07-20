@@ -1,5 +1,6 @@
 # %%
 import pandas as pd
+import random
 import discogs_client
 import streamlit as st
 
@@ -10,15 +11,15 @@ d = discogs_client.Client("ExampleApplication/0.1", user_token= token)
 
 #>>>>>>>>>>>>>>>>>>>>>>>> FUNCTIONS
 
-def list_albums(genre, year):
-    list = []
-    results = d.search(genre=genre,year=year)
-    for el in results:
-        list.append(el)
-    return pd.DataFrame(list)
+# def list_albums(genre, year):
+#     list = []
+#     results = d.search(genre=genre,year=year)
+#     for el in results:
+#         list.append(el)
+#     return pd.DataFrame(list)
    
-# %%
-list_albums("Hip Hop",1986) 
+# # %%
+# list_albums("Hip Hop",1986) 
 
 #%%
 def random_album(genre, year):
@@ -33,4 +34,5 @@ def random_album(genre, year):
         return "todo"
 
 #%%
-random_album("hip hop", 1986)
+print(dir(random_album("hip hop", 1986)))
+
